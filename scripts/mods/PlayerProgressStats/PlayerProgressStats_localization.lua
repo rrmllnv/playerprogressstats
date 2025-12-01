@@ -24,16 +24,16 @@ return {
 		ru = "Всего убийств",
 	},
 	stats_renegade_kills = {
-		en = "Renegade Kills",
-		ru = "Убийств ренегатов",
+		en = "Scab Kills",
+		ru = "Убийств Скабов",
 	},
 	stats_cultist_kills = {
-		en = "Cultist Kills",
-		ru = "Убийств культистов",
+		en = "Dreg Kills",
+		ru = "Убийств Отбросов",
 	},
 	stats_chaos_kills = {
 		en = "Chaos Kills",
-		ru = "Убийств хаоса",
+		ru = "Убийств Хаоситов",
 	},
 	stats_barrel_kills = {
 		en = "Barrel Kills",
@@ -174,6 +174,16 @@ return {
 	stats_specials = {
 		en = "SPECIALS",
 		ru = "СПЕЦВРАГИ",
+	},
+	-- Враги - Орда
+	stats_horde = {
+		en = "HORDE",
+		ru = "ОРДА",
+	},
+	-- Враги - Roamers
+	stats_roamers = {
+		en = "ROAMERS",
+		ru = "БРОДЯГИ",
 	},
 	stats_poxburster = {
 		en = "Poxburster",

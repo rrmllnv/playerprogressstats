@@ -20,6 +20,52 @@ local test_localization_keys = {
     -- "loc_achievement_enemies_killed_by_barrels_description",
     -- "loc_achievement_enemies_killed_by_poxburster_name",
     -- "loc_achievement_enemies_killed_by_poxburster_description",
+
+    "loc_breed_display_name_chaos_hound",
+    "loc_breed_display_name_chaos_hound", -- mutator
+    "loc_breed_display_name_chaos_lesser_mutated_poxwalker",
+    "loc_breed_display_name_chaos_mutated_poxwalker",
+    "loc_breed_display_name_chaos_newly_infected",
+    "loc_breed_display_name_chaos_ogryn_bulwark",
+    "loc_breed_display_name_chaos_ogryn_executor",
+    "loc_breed_display_name_chaos_ogryn_gunner",
+    "loc_breed_display_name_chaos_plage_ogryn",
+    "loc_breed_display_name_chaos_poxwalker_bomber",
+    "loc_breed_display_name_chaos_poxwalker",
+
+    "loc_breed_display_name_cultist_ritualist",
+    "loc_breed_display_name_cultist_assault",
+    "loc_breed_display_name_cultist_berzerker",
+    "loc_breed_display_name_cultist_captain",
+    "loc_breed_display_name_cultist_flamer",
+    "loc_breed_display_name_cultist_grenadier",
+    "loc_breed_display_name_cultist_gunner",
+    "loc_breed_display_name_cultist_melee",
+    "loc_breed_display_name_cultist_mutant",
+    "loc_breed_display_name_cultist_mutant", -- mutator
+    "loc_breed_display_name_cultist_ritualist", -- mutator
+    "loc_breed_display_name_cultist_shocktrooper",
+
+
+    "loc_breed_display_name_renegade_assault",
+    "loc_breed_display_name_renegade_berzerker",
+    "loc_breed_display_name_renegade_captain",
+    "loc_breed_display_name_renegade_executor",
+    "loc_breed_display_name_renegade_flamer",
+    "loc_breed_display_name_renegade_flamer", -- mutator
+    "loc_breed_display_name_renegade_grenadier",
+    "loc_breed_display_name_renegade_gunner",
+    "loc_breed_display_name_renegade_melee",
+    "loc_breed_display_name_renegade_netgunner",
+    "loc_breed_display_name_renegade_plasma_gunner",
+    "loc_breed_display_name_renegade_radio_operator",
+    "loc_breed_display_name_renegade_rifleman",
+    "loc_breed_display_name_renegade_shocktrooper",
+    "loc_breed_display_name_renegade_sniper",
+    "loc_breed_display_name_renegade_twin_captain",
+    "loc_breed_display_name_renegade_twin_captain_two",
+
+
     
     -- Породы врагов - Боссы
     "loc_plague_ogryn_name",
