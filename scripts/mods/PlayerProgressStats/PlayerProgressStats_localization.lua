@@ -120,6 +120,10 @@ return {
 		en = "Localization",
 		ru = "Локализация",
 	},
+	tab_localization_check = {
+		en = "Loc Check",
+		ru = "Проверка",
+	},
 	-- Враги - Боссы
 	stats_bosses = {
 		en = "BOSSES",

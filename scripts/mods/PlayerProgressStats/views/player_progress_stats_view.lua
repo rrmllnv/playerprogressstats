@@ -23,8 +23,9 @@ local TabMissions = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgre
 local TabRecords = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_records")
 local TabDefense = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_defense")
 
--- Отладочная вкладка (только если DEBUG = true)
+-- Отладочные вкладки (только если DEBUG = true)
 local TabLocalizationDebug = DEBUG and mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_localization_debug") or nil
+local TabLocalizationCheck = DEBUG and mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_localization_check") or nil
 
 local Color = Color
 local hud_body_font_settings = UIFontSettings.hud_body or {}
@@ -247,9 +248,10 @@ local tabs_definitions = {
     {key = "tab_defense", fallback = "DEFENSE"},
 }
 
--- Добавляем отладочную вкладку если DEBUG = true
+-- Добавляем отладочные вкладки если DEBUG = true
 if DEBUG then
     table.insert(tabs_definitions, {key = "tab_localization_debug", fallback = "🔍 LOCALIZATION"})
+    table.insert(tabs_definitions, {key = "tab_localization_check", fallback = "✅ LOC CHECK"})
 end
 
 local scenegraph_definition = {
@@ -583,8 +585,12 @@ PlayerProgressStatsView._create_stat_layout = function(self)
         return TabRecords.create_layout(safe_read_stat, localize, format_number)
     elseif tab_index == 5 then
         return TabDefense.create_layout(safe_read_stat, localize, format_number)
-    elseif tab_index == 6 and DEBUG and TabLocalizationDebug then
-        return TabLocalizationDebug.create_layout(safe_read_stat, localize, format_number)
+    elseif DEBUG then
+        if tab_index == 6 and TabLocalizationDebug then
+            return TabLocalizationDebug.create_layout(safe_read_stat, localize, format_number)
+        elseif tab_index == 7 and TabLocalizationCheck then
+            return TabLocalizationCheck.create_layout(safe_read_stat, localize, format_number)
+        end
     end
     
     return {}
