@@ -3,6 +3,7 @@ local PlayerProgressStatsDMFView = class("PlayerProgressStatsDMFView", "BaseView
 local mod = get_mod("PlayerProgressStats")
 
 local ViewElementGrid = require("scripts/ui/view_elements/view_element_grid/view_element_grid")
+local ViewElementInputLegend = require("scripts/ui/view_elements/view_element_input_legend/view_element_input_legend")
 local UIFontSettings = require("scripts/managers/ui/ui_font_settings")
 local UIWidget = require("scripts/managers/ui/ui_widget")
 local ScrollbarPassTemplates = require("scripts/ui/pass_templates/scrollbar_pass_templates")
@@ -258,9 +259,19 @@ for index = 1, #tabs_definitions do
     })
 end
 
+local legend_inputs = {
+    {
+        input_action = "back",
+        on_pressed_callback = "cb_on_back_pressed",
+        display_name = "loc_settings_menu_close_menu",
+        alignment = "left_alignment",
+    },
+}
+
 local definitions = {
     scenegraph_definition = scenegraph_definition,
     widget_definitions = widget_definitions,
+    legend_inputs = legend_inputs,
 }
 
 PlayerProgressStatsDMFView.init = function(self, settings, context)
@@ -272,6 +283,7 @@ end
 PlayerProgressStatsDMFView.on_enter = function(self)
     PlayerProgressStatsDMFView.super.on_enter(self)
 
+    self:_setup_input_legend()
     self:_setup_tab_buttons()
     self:_setup_stats_grid()
     self._active_tab_index = 1
@@ -519,6 +531,24 @@ PlayerProgressStatsDMFView._create_stat_layout = function(self)
     return layout
 end
 
+PlayerProgressStatsDMFView._setup_input_legend = function(self)
+    self._input_legend_element = self:_add_element(ViewElementInputLegend, "input_legend", 10)
+    local legend_inputs = definitions.legend_inputs
+
+    for i = 1, #legend_inputs do
+        local legend_input = legend_inputs[i]
+        local on_pressed_callback = legend_input.on_pressed_callback and callback(self, legend_input.on_pressed_callback)
+
+        self._input_legend_element:add_entry(legend_input.display_name, legend_input.input_action, legend_input.visibility_function, on_pressed_callback, legend_input.alignment)
+    end
+end
+
+PlayerProgressStatsDMFView.cb_on_back_pressed = function(self)
+    if Managers and Managers.ui then
+        Managers.ui:close_view(self.view_name)
+    end
+end
+
 PlayerProgressStatsDMFView.update = function(self, dt, t, input_service)
     if Managers and Managers.ui and Managers.ui:view_instance("dmf_options_view") then
         Managers.ui:close_view(self.view_name)
@@ -536,6 +566,11 @@ PlayerProgressStatsDMFView.update = function(self, dt, t, input_service)
 end
 
 PlayerProgressStatsDMFView.on_exit = function(self)
+    if self._input_legend_element then
+        self._input_legend_element = nil
+        self:_remove_element("input_legend")
+    end
+
     PlayerProgressStatsDMFView.super.on_exit(self)
 end
 
