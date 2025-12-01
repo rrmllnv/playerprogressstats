@@ -2,6 +2,12 @@ local PlayerProgressStatsView = class("PlayerProgressStatsView", "BaseView")
 
 local mod = get_mod("PlayerProgressStats")
 
+-- 🔧 РЕЖИМ ОТЛАДКИ: установите true для отладки локализации
+-- При DEBUG = true появляется дополнительная вкладка "🔍 LOCALIZATION"
+-- В ней можно проверять как переводятся ключи локализации
+-- Редактируйте файл: tabs/tab_localization_debug.lua
+local DEBUG = true
+
 local ViewElementGrid = require("scripts/ui/view_elements/view_element_grid/view_element_grid")
 local ViewElementInputLegend = require("scripts/ui/view_elements/view_element_input_legend/view_element_input_legend")
 local UIFontSettings = require("scripts/managers/ui/ui_font_settings")
@@ -16,6 +22,9 @@ local TabEnemies = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgres
 local TabMissions = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_missions")
 local TabRecords = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_records")
 local TabDefense = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_defense")
+
+-- Отладочная вкладка (только если DEBUG = true)
+local TabLocalizationDebug = DEBUG and mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_localization_debug") or nil
 
 local Color = Color
 local hud_body_font_settings = UIFontSettings.hud_body or {}
@@ -136,10 +145,99 @@ local stat_header_blueprint = {
     end,
 }
 
+local debug_line_blueprint = {
+    size = {grid_size[1] - 20, 70},
+    size_function = function()
+        return {grid_size[1] - 20, 70}
+    end,
+    pass_template = {
+        {
+            content_id = "hotspot",
+            pass_type = "hotspot",
+            content = {
+                use_is_focused = false,
+            },
+        },
+        {
+            pass_type = "texture",
+            value = "content/ui/materials/backgrounds/default_square",
+            style = {
+                color = Color.terminal_background_selected(0, true),
+                offset = {0, 0, 0},
+            },
+            change_function = function(content, style)
+                local hotspot = content.hotspot
+                local hover_progress = hotspot.anim_hover_progress or 0
+                local alpha = 100 * hover_progress
+                style.color[1] = alpha
+            end,
+        },
+        {
+            pass_type = "text",
+            value_id = "text",
+            style = {
+                text_vertical_alignment = "top",
+                text_horizontal_alignment = "left",
+                font_type = UIFontSettings.list_button.font_type or "glass_gothic_medium",
+                font_size = (UIFontSettings.list_button.font_size or 24) - 2,
+                text_color = Color.terminal_text_body(255, true),
+                default_color = Color.terminal_text_body(255, true),
+                hover_color = Color.terminal_text_header_selected(255, true),
+                offset = {10, 5, 1},
+            },
+            change_function = function(content, style)
+                local hotspot = content.hotspot
+                local default_color = style.default_color
+                local hover_color = style.hover_color
+                local hover_progress = hotspot.anim_hover_progress or 0
+                local color = style.text_color
+                
+                color[2] = math.lerp(default_color[2], hover_color[2], hover_progress)
+                color[3] = math.lerp(default_color[3], hover_color[3], hover_progress)
+                color[4] = math.lerp(default_color[4], hover_color[4], hover_progress)
+            end,
+        },
+        {
+            pass_type = "text",
+            value_id = "value",
+            style = {
+                text_vertical_alignment = "bottom",
+                text_horizontal_alignment = "right",
+                font_type = UIFontSettings.list_button.font_type or "proxima_nova_bold",
+                font_size = 20,
+                text_color = Color.terminal_text_header(255, true),
+                default_color = Color.terminal_text_header(255, true),
+                hover_color = Color.terminal_text_header_selected(255, true),
+                offset = {-10, -5, 1},
+            },
+            change_function = function(content, style)
+                local hotspot = content.hotspot
+                local default_color = style.default_color
+                local hover_color = style.hover_color
+                local hover_progress = hotspot.anim_hover_progress or 0
+                local color = style.text_color
+                
+                color[2] = math.lerp(default_color[2], hover_color[2], hover_progress)
+                color[3] = math.lerp(default_color[3], hover_color[3], hover_progress)
+                color[4] = math.lerp(default_color[4], hover_color[4], hover_progress)
+            end,
+        },
+    },
+    init = function(_, widget, element)
+        widget.content.text = element.text or ""
+        widget.content.value = element.value or ""
+    end,
+}
+
 local blueprints = {
     stat_line = stat_line_blueprint,
     stat_header = stat_header_blueprint,
 }
+
+-- Добавляем отладочный blueprint если DEBUG = true
+if DEBUG then
+    blueprints.debug_line = debug_line_blueprint
+end
 
 local tabs_definitions = {
     {key = "tab_general", fallback = "GENERAL"},
@@ -148,6 +246,11 @@ local tabs_definitions = {
     {key = "tab_records", fallback = "RECORDS"},
     {key = "tab_defense", fallback = "DEFENSE"},
 }
+
+-- Добавляем отладочную вкладку если DEBUG = true
+if DEBUG then
+    table.insert(tabs_definitions, {key = "tab_localization_debug", fallback = "🔍 LOCALIZATION"})
+end
 
 local scenegraph_definition = {
     screen = UIWorkspaceSettings.screen,
@@ -480,6 +583,8 @@ PlayerProgressStatsView._create_stat_layout = function(self)
         return TabRecords.create_layout(safe_read_stat, localize, format_number)
     elseif tab_index == 5 then
         return TabDefense.create_layout(safe_read_stat, localize, format_number)
+    elseif tab_index == 6 and DEBUG and TabLocalizationDebug then
+        return TabLocalizationDebug.create_layout(safe_read_stat, localize, format_number)
     end
     
     return {}

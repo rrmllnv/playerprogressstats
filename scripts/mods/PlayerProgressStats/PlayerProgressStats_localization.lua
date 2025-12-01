@@ -116,6 +116,10 @@ return {
 		en = "Defense",
 		ru = "Защита",
 	},
+	tab_localization_debug = {
+		en = "Localization",
+		ru = "Локализация",
+	},
 	-- Враги - Боссы
 	stats_bosses = {
 		en = "BOSSES",
