@@ -54,11 +54,24 @@ local stat_line_blueprint = {
             style = {
                 text_vertical_alignment = "center",
                 text_horizontal_alignment = "left",
-                font_type = hud_body_font_settings.font_type or "machine_medium",
-                font_size = hud_body_font_settings.font_size or 18,
-                text_color = {255, 255, 255, 255},
+                font_type = UIFontSettings.list_button.font_type or "proxima_nova_bold",
+                font_size = UIFontSettings.list_button.font_size or 24,
+                text_color = Color.terminal_text_header(255, true),
+                default_color = Color.terminal_text_header(255, true),
+                hover_color = Color.terminal_text_header_selected(255, true),
                 offset = {10, 0, 1},
             },
+            change_function = function(content, style)
+                local hotspot = content.hotspot
+                local default_color = style.default_color
+                local hover_color = style.hover_color
+                local hover_progress = hotspot.anim_hover_progress or 0
+                local color = style.text_color
+                
+                color[2] = math.lerp(default_color[2], hover_color[2], hover_progress)
+                color[3] = math.lerp(default_color[3], hover_color[3], hover_progress)
+                color[4] = math.lerp(default_color[4], hover_color[4], hover_progress)
+            end,
         },
         {
             pass_type = "text",
@@ -66,11 +79,24 @@ local stat_line_blueprint = {
             style = {
                 text_vertical_alignment = "center",
                 text_horizontal_alignment = "right",
-                font_type = hud_body_font_settings.font_type or "machine_medium",
-                font_size = hud_body_font_settings.font_size or 18,
+                font_type = UIFontSettings.list_button.font_type or "proxima_nova_bold",
+                font_size = UIFontSettings.list_button.font_size or 24,
                 text_color = Color.terminal_text_header(255, true),
+                default_color = Color.terminal_text_header(255, true),
+                hover_color = Color.terminal_text_header_selected(255, true),
                 offset = {-10, 0, 1},
             },
+            change_function = function(content, style)
+                local hotspot = content.hotspot
+                local default_color = style.default_color
+                local hover_color = style.hover_color
+                local hover_progress = hotspot.anim_hover_progress or 0
+                local color = style.text_color
+                
+                color[2] = math.lerp(default_color[2], hover_color[2], hover_progress)
+                color[3] = math.lerp(default_color[3], hover_color[3], hover_progress)
+                color[4] = math.lerp(default_color[4], hover_color[4], hover_progress)
+            end,
         },
     },
     init = function(_, widget, element)
