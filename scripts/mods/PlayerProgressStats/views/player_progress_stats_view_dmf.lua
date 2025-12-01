@@ -137,8 +137,8 @@ local blueprints = {
 local tabs_definitions = {
     {key = "tab_general", fallback = "GENERAL"},
     {key = "tab_enemies", fallback = "ENEMIES"},
-    {key = "tab_records", fallback = "RECORDS"},
     {key = "tab_missions", fallback = "MISSIONS"},
+    {key = "tab_records", fallback = "RECORDS"},
     {key = "tab_defense", fallback = "DEFENSE"},
 }
 
@@ -463,6 +463,7 @@ PlayerProgressStatsDMFView._create_stat_layout = function(self)
         local other_kills = total_kills - (renegade_kills + cultist_kills + chaos_kills + barrel_kills + poxburster_kills + companion_pounce_kills + companion_coherency_kills)
 
         table.insert(layout, {widget_type = "stat_line", text = localize("stats_total_kills"), value = format_number(total_kills)})
+        table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
         table.insert(layout, {widget_type = "stat_line", text = localize("stats_renegade_kills"), value = format_number(renegade_kills)})
         table.insert(layout, {widget_type = "stat_line", text = localize("stats_cultist_kills"), value = format_number(cultist_kills)})
         table.insert(layout, {widget_type = "stat_line", text = localize("stats_chaos_kills"), value = format_number(chaos_kills)})
@@ -519,15 +520,6 @@ PlayerProgressStatsDMFView._create_stat_layout = function(self)
         table.insert(layout, {widget_type = "stat_line", text = localize("stats_netgunner"), value = format_number(safe_read_stat("total_renegade_netgunner_killed"))})
     
     elseif tab_index == 3 then
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_max_headshots"), value = format_number(safe_read_stat("max_head_shot_in_a_row"))})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_max_kills_60s"), value = format_number(safe_read_stat("max_kills_last_60_sec"))})
-
-        local fastest_boss = safe_read_stat("fastest_boss_kill")
-
-        if fastest_boss > 0 and fastest_boss < 18000 then
-            table.insert(layout, {widget_type = "stat_line", text = localize("stats_fastest_boss_kill"), value = format_number(fastest_boss) .. "s"})
-        end
-    elseif tab_index == 4 then
         table.insert(layout, {widget_type = "stat_line", text = localize("stats_missions"), value = format_number(safe_read_stat("missions"))})
         table.insert(layout, {widget_type = "stat_line", text = localize("stats_auric_missions"), value = format_number(safe_read_stat("auric_missions"))})
         table.insert(layout, {widget_type = "stat_line", text = localize("stats_havoc_missions"), value = format_number(safe_read_stat("havoc_missions"))})
@@ -545,6 +537,15 @@ PlayerProgressStatsDMFView._create_stat_layout = function(self)
 
         if havoc_rank > 0 then
             table.insert(layout, {widget_type = "stat_line", text = localize("stats_havoc_rank"), value = format_number(havoc_rank)})
+        end
+    elseif tab_index == 4 then
+        table.insert(layout, {widget_type = "stat_line", text = localize("stats_max_headshots"), value = format_number(safe_read_stat("max_head_shot_in_a_row"))})
+        table.insert(layout, {widget_type = "stat_line", text = localize("stats_max_kills_60s"), value = format_number(safe_read_stat("max_kills_last_60_sec"))})
+
+        local fastest_boss = safe_read_stat("fastest_boss_kill")
+
+        if fastest_boss > 0 and fastest_boss < 18000 then
+            table.insert(layout, {widget_type = "stat_line", text = localize("stats_fastest_boss_kill"), value = format_number(fastest_boss) .. "s"})
         end
     elseif tab_index == 5 then
         table.insert(layout, {widget_type = "stat_line", text = localize("stats_max_dodges"), value = format_number(safe_read_stat("max_dodges_in_a_row"))})
