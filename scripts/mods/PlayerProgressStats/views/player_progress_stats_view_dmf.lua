@@ -22,9 +22,9 @@ local grid_size = {stats_panel_size[1] - 140, stats_panel_size[2] - 120}
 local mask_size = {grid_size[1] + 32, grid_size[2] + 32}
 
 local stat_line_blueprint = {
-    size = {grid_size[1] - 20, 26},
+    size = {grid_size[1] - 20, 34},
     size_function = function()
-        return {grid_size[1] - 20, 26}
+        return {grid_size[1] - 20, 34}
     end,
     pass_template = {
         {
@@ -80,9 +80,9 @@ local stat_line_blueprint = {
 }
 
 local stat_header_blueprint = {
-    size = {grid_size[1] - 20, 32},
+    size = {grid_size[1] - 20, 40},
     size_function = function()
-        return {grid_size[1] - 20, 32}
+        return {grid_size[1] - 20, 40}
     end,
     pass_template = {
         {
