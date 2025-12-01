@@ -1,5 +1,5 @@
 local mod = get_mod("PlayerProgressStats")
-local NEW_VIEW_NAME = "player_progress_stats_view_dmf"
+local NEW_VIEW_NAME = "player_progress_stats_view"
 
 local view_templates = mod:io_dofile([[PlayerProgressStats\scripts\mods\PlayerProgressStats\templates\view_templates]])
 local system_view_injected = false

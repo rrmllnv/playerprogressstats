@@ -10,34 +10,10 @@ local view_templates = {
                 return true
             end,
             state_bound = true,
-            path = [[PlayerProgressStats\scripts\mods\PlayerProgressStats\views\player_progress_stats_view]],
-            class = "PlayerProgressStatsView",
-            load_always = true,
-            enter_sound_events = {
-                UISoundEvents.system_menu_enter,
-            },
-            exit_sound_events = {
-                UISoundEvents.system_menu_exit,
-            },
-            wwise_states = {
-                options = WwiseGameSyncSettings.state_groups.options.ingame_menu,
-            },
-        },
-        view_transitions = {},
-        view_options = {},
-    },
-    player_progress_stats_view_dmf = {
-        display_name = "Player Progress Stats (DMF UI)",
-        view_name = "player_progress_stats_view_dmf",
-        view_settings = {
-            init_view_function = function(ingame_ui_context)
-                return true
-            end,
-            state_bound = true,
             disable_game_world = false,
             game_world_blur = 1.1,
-            path = [[PlayerProgressStats\scripts\mods\PlayerProgressStats\views\player_progress_stats_view_dmf]],
-            class = "PlayerProgressStatsDMFView",
+            path = [[PlayerProgressStats\scripts\mods\PlayerProgressStats\views\player_progress_stats_view]],
+            class = "PlayerProgressStatsView",
             load_always = true,
             enter_sound_events = {
                 UISoundEvents.system_menu_enter,

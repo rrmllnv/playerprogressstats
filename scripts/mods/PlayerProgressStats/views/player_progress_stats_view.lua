@@ -1,4 +1,4 @@
-local PlayerProgressStatsDMFView = class("PlayerProgressStatsDMFView", "BaseView")
+local PlayerProgressStatsView = class("PlayerProgressStatsView", "BaseView")
 
 local mod = get_mod("PlayerProgressStats")
 
@@ -307,14 +307,14 @@ local definitions = {
     legend_inputs = legend_inputs,
 }
 
-PlayerProgressStatsDMFView.init = function(self, settings, context)
-    PlayerProgressStatsDMFView.super.init(self, definitions, settings, context)
+PlayerProgressStatsView.init = function(self, settings, context)
+    PlayerProgressStatsView.super.init(self, definitions, settings, context)
     self._context = context
     self._active_tab_index = 1
 end
 
-PlayerProgressStatsDMFView.on_enter = function(self)
-    PlayerProgressStatsDMFView.super.on_enter(self)
+PlayerProgressStatsView.on_enter = function(self)
+    PlayerProgressStatsView.super.on_enter(self)
 
     self:_setup_input_legend()
     self:_setup_tab_buttons()
@@ -324,7 +324,7 @@ PlayerProgressStatsDMFView.on_enter = function(self)
     self:_update_title()
 end
 
-PlayerProgressStatsDMFView._setup_tab_buttons = function(self)
+PlayerProgressStatsView._setup_tab_buttons = function(self)
     for index, tab in ipairs(tabs_definitions) do
         local button_widget = self._widgets_by_name["tab_button_" .. index]
 
@@ -345,7 +345,7 @@ PlayerProgressStatsDMFView._setup_tab_buttons = function(self)
     end
 end
 
-PlayerProgressStatsDMFView._setup_stats_grid = function(self)
+PlayerProgressStatsView._setup_stats_grid = function(self)
     local grid_settings = {
         scrollbar_width = scrollbar_width,
         grid_spacing = {0, 5},
@@ -365,7 +365,7 @@ PlayerProgressStatsDMFView._setup_stats_grid = function(self)
     self:_update_grid_content()
 end
 
-PlayerProgressStatsDMFView._update_tab_selection = function(self)
+PlayerProgressStatsView._update_tab_selection = function(self)
     for i = 1, #tabs_definitions do
         local button_widget = self._widgets_by_name["tab_button_" .. i]
 
@@ -376,13 +376,13 @@ PlayerProgressStatsDMFView._update_tab_selection = function(self)
     end
 end
 
-PlayerProgressStatsDMFView._on_tab_pressed = function(self, index)
+PlayerProgressStatsView._on_tab_pressed = function(self, index)
     self._active_tab_index = index
     self:_update_tab_selection()
     self:_update_grid_content()
 end
 
-PlayerProgressStatsDMFView._update_title = function(self)
+PlayerProgressStatsView._update_title = function(self)
     local title_widget = self._widgets_by_name.title_text
 
     if not title_widget then
@@ -402,7 +402,7 @@ PlayerProgressStatsDMFView._update_title = function(self)
     title_widget.dirty = true
 end
 
-PlayerProgressStatsDMFView._update_grid_content = function(self)
+PlayerProgressStatsView._update_grid_content = function(self)
     if not self._stats_grid then
         return
     end
@@ -411,7 +411,7 @@ PlayerProgressStatsDMFView._update_grid_content = function(self)
     self._stats_grid:present_grid_layout(layout, blueprints)
 end
 
-PlayerProgressStatsDMFView._create_stat_layout = function(self)
+PlayerProgressStatsView._create_stat_layout = function(self)
     local function safe_read_stat(stat_name)
         if not Managers or not Managers.stats or not Managers.stats.read_user_stat then
             return 0
@@ -485,7 +485,7 @@ PlayerProgressStatsDMFView._create_stat_layout = function(self)
     return {}
 end
 
-PlayerProgressStatsDMFView._setup_input_legend = function(self)
+PlayerProgressStatsView._setup_input_legend = function(self)
     self._input_legend_element = self:_add_element(ViewElementInputLegend, "input_legend", 10)
     local legend_inputs = definitions.legend_inputs
 
@@ -497,20 +497,20 @@ PlayerProgressStatsDMFView._setup_input_legend = function(self)
     end
 end
 
-PlayerProgressStatsDMFView.cb_on_back_pressed = function(self)
+PlayerProgressStatsView.cb_on_back_pressed = function(self)
     if Managers and Managers.ui then
         Managers.ui:close_view(self.view_name)
     end
 end
 
-PlayerProgressStatsDMFView.update = function(self, dt, t, input_service)
+PlayerProgressStatsView.update = function(self, dt, t, input_service)
     if Managers and Managers.ui and Managers.ui:view_instance("dmf_options_view") then
         Managers.ui:close_view(self.view_name)
 
         return
     end
 
-    PlayerProgressStatsDMFView.super.update(self, dt, t, input_service)
+    PlayerProgressStatsView.super.update(self, dt, t, input_service)
 
     if input_service and input_service:get("back_released") then
         if Managers and Managers.ui then
@@ -519,16 +519,14 @@ PlayerProgressStatsDMFView.update = function(self, dt, t, input_service)
     end
 end
 
-PlayerProgressStatsDMFView.on_exit = function(self)
+PlayerProgressStatsView.on_exit = function(self)
     if self._input_legend_element then
         self._input_legend_element = nil
         self:_remove_element("input_legend")
     end
 
-    PlayerProgressStatsDMFView.super.on_exit(self)
+    PlayerProgressStatsView.super.on_exit(self)
 end
 
-return PlayerProgressStatsDMFView
-
-
+return PlayerProgressStatsView
 
