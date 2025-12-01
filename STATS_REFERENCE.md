@@ -1,5 +1,130 @@
 # Darktide Statistics Reference / Справочник статистик Darktide
 
+---
+
+## 📋 БЫСТРЫЙ СПРАВОЧНИК: Статистики с локализацией
+
+### Формат таблицы:
+| Статистика (stat_name) | Локализация (loc_key) | Описание |
+|------------------------|----------------------|----------|
+
+### Убийства - Специальные:
+| Статистика | Локализация | Описание |
+|-----------|-------------|----------|
+| `enemies_killed_with_barrels` | `loc_achievement_enemies_killed_by_barrels_name` | Враги убиты бочками |
+| `enemies_killed_with_poxburster_explosion` | `loc_achievement_enemies_killed_by_poxburster_name` | Враги убиты взрывами поксбурстеров |
+
+### Убийства - Общие:
+| Статистика | Локализация | Описание |
+|-----------|-------------|----------|
+| `total_kills` | - | Общее количество убийств |
+| `total_renegade_kills` | - | Убийства ренегатов |
+| `total_cultist_kills` | - | Убийства культистов |
+| `total_chaos_kills` | - | Убийства хаоса |
+
+### Убийства - Боссы:
+| Статистика | Локализация | Описание |
+|-----------|-------------|----------|
+| `total_chaos_beast_of_nurgle_killed` | `loc_breed_display_name_chaos_beast_of_nurgle` | Beast of Nurgle |
+| `total_chaos_spawn_killed` | `loc_breed_display_name_chaos_spawn` | Chaos Spawn |
+| `total_chaos_plague_ogryn_killed` | `loc_breed_display_name_chaos_plague_ogryn` | Plague Ogryn |
+| `total_chaos_daemonhost_killed` | `loc_breed_display_name_chaos_daemonhost` | Daemonhost |
+| `total_chaos_mutator_daemonhost_killed` | `loc_breed_display_name_chaos_daemonhost` | Mutator Daemonhost |
+
+### Убийства - Элиты (Ogryn):
+| Статистика | Локализация | Описание |
+|-----------|-------------|----------|
+| `total_chaos_ogryn_executor_killed` | `loc_breed_display_name_chaos_ogryn_executor` | Chaos Ogryn Executor |
+| `total_chaos_ogryn_gunner_killed` | `loc_breed_display_name_chaos_ogryn_gunner` | Chaos Ogryn Gunner |
+| `total_chaos_ogryn_bulwark_killed` | `loc_breed_display_name_chaos_ogryn_bulwark` | Chaos Ogryn Bulwark |
+
+### Убийства - Элиты (Renegade):
+| Статистика | Локализация | Описание |
+|-----------|-------------|----------|
+| `total_renegade_shocktrooper_killed` | `loc_breed_display_name_renegade_shocktrooper` | Renegade Shocktrooper |
+| `total_renegade_plasma_gunner_killed` | `loc_breed_display_name_renegade_plasma_gunner` | Renegade Plasma Gunner |
+| `total_renegade_gunner_killed` | `loc_breed_display_name_renegade_gunner` | Renegade Gunner |
+| `total_renegade_executor_killed` | `loc_breed_display_name_renegade_executor` | Renegade Executor |
+| `total_renegade_berzerker_killed` | `loc_breed_display_name_renegade_berzerker` | Renegade Berzerker |
+
+### Убийства - Элиты (Cultist):
+| Статистика | Локализация | Описание |
+|-----------|-------------|----------|
+| `total_cultist_shocktrooper_killed` | `loc_breed_display_name_cultist_shocktrooper` | Cultist Shocktrooper |
+| `total_cultist_gunner_killed` | `loc_breed_display_name_cultist_gunner` | Cultist Gunner |
+| `total_cultist_berzerker_killed` | `loc_breed_display_name_cultist_berzerker` | Cultist Berzerker |
+
+### Убийства - Специалисты:
+| Статистика | Локализация | Описание |
+|-----------|-------------|----------|
+| `total_renegade_sniper_killed` | `loc_breed_display_name_renegade_sniper` | Renegade Sniper |
+| `total_renegade_netgunner_killed` | `loc_breed_display_name_renegade_netgunner` | Renegade Netgunner |
+| `total_renegade_flamer_killed` | `loc_breed_display_name_renegade_flamer` | Renegade Flamer |
+| `total_renegade_flamer_mutator_killed` | `loc_breed_display_name_renegade_flamer` | Renegade Flamer Mutator |
+| `total_renegade_grenadier_killed` | `loc_breed_display_name_renegade_grenadier` | Renegade Grenadier |
+| `total_cultist_grenadier_killed` | `loc_breed_display_name_cultist_grenadier` | Cultist Grenadier |
+| `total_cultist_mutant_killed` | `loc_breed_display_name_cultist_mutant` | Cultist Mutant |
+| `total_cultist_mutant_mutator_killed` | `loc_breed_display_name_cultist_mutant` | Cultist Mutant Mutator |
+| `total_cultist_flamer_killed` | `loc_breed_display_name_cultist_flamer` | Cultist Flamer |
+| `total_chaos_poxwalker_bomber_killed` | `loc_breed_display_name_chaos_poxwalker_bomber` | Poxburster |
+| `total_chaos_hound_killed` | `loc_breed_display_name_chaos_hound` | Chaos Hound |
+| `total_chaos_hound_mutator_killed` | `loc_breed_display_name_chaos_hound` | Chaos Hound Mutator |
+
+### Рекорды:
+| Статистика | Локализация | Описание |
+|-----------|-------------|----------|
+| `max_head_shot_in_a_row` | - | Максимум хедшотов подряд |
+| `max_kills_last_60_sec` | - | Максимум убийств за 60 сек |
+| `fastest_boss_kill` | - | Самое быстрое убийство босса |
+| `max_dodges_in_a_row` | - | Максимум уклонений подряд |
+| `max_damage_blocked_last_20_sec` | - | Максимум блока за 20 сек |
+| `max_flawless_mission_in_a_row` | - | Безупречных миссий подряд |
+
+### Миссии:
+| Статистика | Локализация | Описание |
+|-----------|-------------|----------|
+| `missions` | - | Пройдено миссий |
+| `auric_missions` | - | Auric миссий |
+| `havoc_missions` | - | Havoc миссий |
+| `havoc_rank_reached_01` до `08` | - | Havoc ранги (5, 10, 15, 20, 25, 30, 35, 40) |
+
+### Защита:
+| Статистика | Локализация | Описание |
+|-----------|-------------|----------|
+| `total_sprint_dodges` | - | Уклонений спринтом |
+| `total_slide_dodges` | - | Уклонений слайдом |
+
+### Помощь:
+| Статистика | Локализация | Описание |
+|-----------|-------------|----------|
+| `total_player_rescues` | - | Спасений игроков |
+| `total_player_assists` | - | Ассистов |
+
+### Выносливость:
+| Статистика | Локализация | Описание |
+|-----------|-------------|----------|
+| `total_coherency_toughness` | - | Восстановлено через coherency |
+| `total_melee_toughness_regen` | - | Восстановлено в ближнем бою |
+
+---
+
+## 💡 Как использовать локализацию:
+
+```lua
+-- В функции localize() сначала проверяется официальная локализация
+local text = localize("loc_breed_display_name_chaos_daemonhost")
+-- Вернёт переведенное название на языке игрока
+
+-- Пример использования
+table.insert(layout, {
+    widget_type = "stat_line",
+    text = localize("loc_achievement_enemies_killed_by_barrels_name"),
+    value = format_number(safe_read_stat("enemies_killed_with_barrels"))
+})
+```
+
+---
+
 ## Варианты названия модуля:
 
 1. **StatsReference** - Справочник статистик

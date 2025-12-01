@@ -88,7 +88,8 @@ mod.on_all_mods_loaded = function()
 			local new_entry = {
 				text = "player_progress_stats_button",
 				type = "button",
-				icon = "content/ui/materials/icons/system/escape/settings",
+				-- icon = "content/ui/materials/icons/system/escape/settings",
+				icon = "content/ui/materials/icons/system/escape/achievement",
 				trigger_function = function()
 					mod.toggle_stats_display()
 				end,

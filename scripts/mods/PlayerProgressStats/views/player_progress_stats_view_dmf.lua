@@ -437,6 +437,18 @@ PlayerProgressStatsDMFView._create_stat_layout = function(self)
     end
 
     local function localize(key)
+        -- Сначала пытаемся использовать официальную локализацию игры
+        if key:match("^loc_") then
+            local success, result = pcall(function()
+                return Localize(key)
+            end)
+            
+            if success and result and result ~= "" and result ~= key then
+                return result
+            end
+        end
+        
+        -- Если не получилось, используем локализацию мода
         local success, result = pcall(function()
             return mod:localize(key)
         end)
@@ -547,6 +559,12 @@ PlayerProgressStatsDMFView._create_stat_layout = function(self)
         if fastest_boss > 0 and fastest_boss < 18000 then
             table.insert(layout, {widget_type = "stat_line", text = localize("stats_fastest_boss_kill"), value = format_number(fastest_boss) .. "s"})
         end
+        
+        table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
+        table.insert(layout, {widget_type = "stat_line", text = "Player Rescues (TEST)", value = format_number(safe_read_stat("total_player_rescues"))})
+        table.insert(layout, {widget_type = "stat_line", text = "Player Assists (TEST)", value = format_number(safe_read_stat("total_player_assists"))})
+        table.insert(layout, {widget_type = "stat_line", text = "Coherency Toughness (TEST)", value = format_number(safe_read_stat("total_coherency_toughness"))})
+        table.insert(layout, {widget_type = "stat_line", text = "Melee Toughness Regen (TEST)", value = format_number(safe_read_stat("total_melee_toughness_regen"))})
     elseif tab_index == 5 then
         table.insert(layout, {widget_type = "stat_line", text = localize("stats_max_dodges"), value = format_number(safe_read_stat("max_dodges_in_a_row"))})
         table.insert(layout, {widget_type = "stat_line", text = localize("stats_sprint_dodges"), value = format_number(safe_read_stat("total_sprint_dodges"))})
