@@ -10,6 +10,13 @@ local ScrollbarPassTemplates = require("scripts/ui/pass_templates/scrollbar_pass
 local ButtonPassTemplates = require("scripts/ui/pass_templates/button_pass_templates")
 local UIWorkspaceSettings = require("scripts/settings/ui/ui_workspace_settings")
 
+-- Импорт модулей вкладок
+local TabGeneral = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_general")
+local TabEnemies = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_enemies")
+local TabMissions = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_missions")
+local TabRecords = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_records")
+local TabDefense = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_defense")
+
 local Color = Color
 local hud_body_font_settings = UIFontSettings.hud_body or {}
 
@@ -460,120 +467,22 @@ PlayerProgressStatsDMFView._create_stat_layout = function(self)
         return key
     end
 
-    local layout = {}
     local tab_index = self._active_tab_index or 1
-
-    if tab_index == 1 then
-        local total_kills = safe_read_stat("total_kills")
-        local renegade_kills = safe_read_stat("total_renegade_kills")
-        local cultist_kills = safe_read_stat("total_cultist_kills")
-        local chaos_kills = safe_read_stat("total_chaos_kills")
-        local barrel_kills = safe_read_stat("enemies_killed_with_barrels")
-        local poxburster_kills = safe_read_stat("enemies_killed_with_poxburster_explosion")
-        local companion_pounce_kills = safe_read_stat("adamant_killed_enemies_pounced_by_companion")
-        local companion_coherency_kills = safe_read_stat("adamant_team_companion_in_coherency_kills")
-        local other_kills = total_kills - (renegade_kills + cultist_kills + chaos_kills + barrel_kills + poxburster_kills + companion_pounce_kills + companion_coherency_kills)
-
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_total_kills"), value = format_number(total_kills)})
-        table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_renegade_kills"), value = format_number(renegade_kills)})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_cultist_kills"), value = format_number(cultist_kills)})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_chaos_kills"), value = format_number(chaos_kills)})
-        table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_barrel_kills"), value = format_number(barrel_kills)})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_poxburster_explosion_kills"), value = format_number(poxburster_kills)})
-
-        if companion_pounce_kills > 0 then
-            table.insert(layout, {widget_type = "stat_line", text = localize("stats_companion_pounce_kills"), value = format_number(companion_pounce_kills)})
-        end
-
-        if companion_coherency_kills > 0 then
-            table.insert(layout, {widget_type = "stat_line", text = localize("stats_companion_coherency_kills"), value = format_number(companion_coherency_kills)})
-        end
-
-        if other_kills > 0 then
-            table.insert(layout, {widget_type = "stat_line", text = localize("stats_other_kills"), value = format_number(other_kills)})
-        end
-
-        table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_missions"), value = format_number(safe_read_stat("missions"))})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_auric_missions"), value = format_number(safe_read_stat("auric_missions"))})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_havoc_missions"), value = format_number(safe_read_stat("havoc_missions"))})
-    elseif tab_index == 2 then
-        table.insert(layout, {widget_type = "stat_header", text = localize("stats_bosses")})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_beast_of_nurgle"), value = format_number(safe_read_stat("total_chaos_beast_of_nurgle_killed"))})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_chaos_spawn"), value = format_number(safe_read_stat("total_chaos_spawn_killed"))})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_plague_ogryn"), value = format_number(safe_read_stat("total_chaos_plague_ogryn_killed"))})
-
-        local daemon = safe_read_stat("total_chaos_daemonhost_killed") + safe_read_stat("total_chaos_mutator_daemonhost_killed")
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_daemonhost"), value = format_number(daemon)})
-
-        table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
-        table.insert(layout, {widget_type = "stat_header", text = localize("stats_elites")})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_ogryn_gunner"), value = format_number(safe_read_stat("total_chaos_ogryn_gunner_killed"))})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_ogryn_executor"), value = format_number(safe_read_stat("total_chaos_ogryn_executor_killed"))})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_ogryn_bulwark"), value = format_number(safe_read_stat("total_chaos_ogryn_bulwark_killed"))})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_renegade_gunner"), value = format_number(safe_read_stat("total_renegade_gunner_killed"))})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_cultist_gunner"), value = format_number(safe_read_stat("total_cultist_gunner_killed"))})
-
-        table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
-        table.insert(layout, {widget_type = "stat_header", text = localize("stats_specials")})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_poxburster"), value = format_number(safe_read_stat("total_chaos_poxwalker_bomber_killed"))})
-
-        local hound = safe_read_stat("total_chaos_hound_killed") + safe_read_stat("total_chaos_hound_mutator_killed")
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_hound"), value = format_number(hound)})
-
-        local mutant = safe_read_stat("total_cultist_mutant_killed") + safe_read_stat("total_cultist_mutant_mutator_killed")
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_mutant"), value = format_number(mutant)})
-
-        local flamer = safe_read_stat("total_renegade_flamer_killed") + safe_read_stat("total_renegade_flamer_mutator_killed") + safe_read_stat("total_cultist_flamer_killed")
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_flamer"), value = format_number(flamer)})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_sniper"), value = format_number(safe_read_stat("total_renegade_sniper_killed"))})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_netgunner"), value = format_number(safe_read_stat("total_renegade_netgunner_killed"))})
     
+    -- Вызываем соответствующий модуль вкладки
+    if tab_index == 1 then
+        return TabGeneral.create_layout(safe_read_stat, localize, format_number)
+    elseif tab_index == 2 then
+        return TabEnemies.create_layout(safe_read_stat, localize, format_number)
     elseif tab_index == 3 then
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_missions"), value = format_number(safe_read_stat("missions"))})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_auric_missions"), value = format_number(safe_read_stat("auric_missions"))})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_havoc_missions"), value = format_number(safe_read_stat("havoc_missions"))})
-        table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_flawless_missions"), value = format_number(safe_read_stat("max_flawless_mission_in_a_row"))})
-
-        local havoc_rank = 0
-
-        for i = 8, 1, -1 do
-            if safe_read_stat("havoc_rank_reached_0" .. i) > 0 then
-                havoc_rank = i * 5
-                break
-            end
-        end
-
-        if havoc_rank > 0 then
-            table.insert(layout, {widget_type = "stat_line", text = localize("stats_havoc_rank"), value = format_number(havoc_rank)})
-        end
+        return TabMissions.create_layout(safe_read_stat, localize, format_number)
     elseif tab_index == 4 then
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_max_headshots"), value = format_number(safe_read_stat("max_head_shot_in_a_row"))})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_max_kills_60s"), value = format_number(safe_read_stat("max_kills_last_60_sec"))})
-
-        local fastest_boss = safe_read_stat("fastest_boss_kill")
-
-        if fastest_boss > 0 and fastest_boss < 18000 then
-            table.insert(layout, {widget_type = "stat_line", text = localize("stats_fastest_boss_kill"), value = format_number(fastest_boss) .. "s"})
-        end
-        
-        table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
-        table.insert(layout, {widget_type = "stat_line", text = "Player Rescues (TEST)", value = format_number(safe_read_stat("total_player_rescues"))})
-        table.insert(layout, {widget_type = "stat_line", text = "Player Assists (TEST)", value = format_number(safe_read_stat("total_player_assists"))})
-        table.insert(layout, {widget_type = "stat_line", text = "Coherency Toughness (TEST)", value = format_number(safe_read_stat("total_coherency_toughness"))})
-        table.insert(layout, {widget_type = "stat_line", text = "Melee Toughness Regen (TEST)", value = format_number(safe_read_stat("total_melee_toughness_regen"))})
+        return TabRecords.create_layout(safe_read_stat, localize, format_number)
     elseif tab_index == 5 then
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_max_dodges"), value = format_number(safe_read_stat("max_dodges_in_a_row"))})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_sprint_dodges"), value = format_number(safe_read_stat("total_sprint_dodges"))})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_slide_dodges"), value = format_number(safe_read_stat("total_slide_dodges"))})
-        table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
-        table.insert(layout, {widget_type = "stat_line", text = localize("stats_max_damage_blocked"), value = format_number(safe_read_stat("max_damage_blocked_last_20_sec"))})
+        return TabDefense.create_layout(safe_read_stat, localize, format_number)
     end
-
-    return layout
+    
+    return {}
 end
 
 PlayerProgressStatsDMFView._setup_input_legend = function(self)
