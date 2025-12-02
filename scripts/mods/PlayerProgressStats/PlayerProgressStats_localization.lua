@@ -223,6 +223,91 @@ return {
 		en = "Highest Havoc Rank",
 		ru = "Наивысший Havoc ранг",
 	},
+	-- Миссии - дополнительные
+	stats_missions_main = {
+		en = "MAIN MISSIONS",
+		ru = "ОСНОВНЫЕ МИССИИ",
+	},
+	stats_maelstrom_missions = {
+		en = "Maelstrom Missions",
+		ru = "Maelstrom миссии",
+	},
+	stats_auric_maelstrom_missions = {
+		en = "Auric Maelstrom Missions",
+		ru = "Auric Maelstrom миссии",
+	},
+	stats_circumstance_missions = {
+		en = "Circumstance Missions",
+		ru = "Миссии с обстоятельствами",
+	},
+	stats_flawless_header = {
+		en = "FLAWLESS MISSIONS",
+		ru = "БЕЗУПРЕЧНЫЕ МИССИИ",
+	},
+	stats_personal_flawless_auric = {
+		en = "Personal Flawless Auric",
+		ru = "Личные безупречные Auric",
+	},
+	stats_team_flawless_missions = {
+		en = "Team Flawless Missions",
+		ru = "Командные безупречные миссии",
+	},
+	stats_flawless_auric_maelstrom = {
+		en = "Flawless Auric Maelstrom",
+		ru = "Безупречные Auric Maelstrom",
+	},
+	stats_flawless_auric_maelstrom_consecutive = {
+		en = "Flawless Auric Maelstrom (Consecutive)",
+		ru = "Безупречные Auric Maelstrom (подряд)",
+	},
+	stats_flawless_havoc_won = {
+		en = "Flawless Havoc (Rank 35+)",
+		ru = "Безупречные Havoc (ранг 35+)",
+	},
+	stats_havoc_header = {
+		en = "HAVOC",
+		ru = "HAVOC",
+	},
+	stats_havoc_win_assisted = {
+		en = "Havoc Assisted Wins",
+		ru = "Havoc побед (помощь)",
+	},
+	stats_twins_header = {
+		en = "TWINS MISSIONS",
+		ru = "МИССИИ TWINS",
+	},
+	stats_mission_twins = {
+		en = "Twins Missions",
+		ru = "Миссии Twins",
+	},
+	stats_mission_twins_hard_mode = {
+		en = "Twins Hard Mode",
+		ru = "Twins сложный режим",
+	},
+	stats_mission_twins_secret_puzzle = {
+		en = "Twins Secret Puzzle",
+		ru = "Twins секретная головоломка",
+	},
+	stats_mission_twins_killed_within_x = {
+		en = "Twins Killed Within 5s",
+		ru = "Twins убиты за 5 секунд",
+	},
+	stats_mission_twins_no_mines = {
+		en = "Twins No Mines Triggered",
+		ru = "Twins без активации мин",
+	},
+	stats_zones_header = {
+		en = "ZONES",
+		ru = "ЗОНЫ",
+	},
+	stats_mission_records = {
+		en = "RECORDS",
+		ru = "РЕКОРДЫ",
+	},
+	stats_lowest_damage_taken = {
+		en = "Lowest Damage Taken (Win)",
+		ru = "Минимальный урон (победа)",
+	},
 	-- Защита
 	stats_total_dodges = {
 		en = "Total Dodges",

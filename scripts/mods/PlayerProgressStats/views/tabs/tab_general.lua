@@ -36,11 +36,6 @@ TabGeneral.create_layout = function(safe_read_stat, localize, format_number)
         table.insert(layout, {widget_type = "stat_line", text = localize("stats_other_kills"), value = format_number(other_kills)})
     end
 
-    table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
-    table.insert(layout, {widget_type = "stat_line", text = localize("stats_missions"), value = format_number(safe_read_stat("missions"))})
-    table.insert(layout, {widget_type = "stat_line", text = localize("stats_auric_missions"), value = format_number(safe_read_stat("auric_missions"))})
-    table.insert(layout, {widget_type = "stat_line", text = localize("stats_havoc_missions"), value = format_number(safe_read_stat("havoc_missions"))})
-
     return layout
 end
 

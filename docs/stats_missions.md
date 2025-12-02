@@ -2,73 +2,67 @@
 
 ---
 
-## Статистики для вкладки "Миссии"
+## 📊 Полная статистика миссий
 
-### 📊 Основные миссии:
-
-| Статистика | Локализация | Описание |
-|-----------|-------------|----------|
-| `missions` | Своя: `stats_missions` | Общее количество пройденных миссий |
-| `auric_missions` | Своя: `stats_auric_missions` | Auric миссии (сложность 4-5) |
-| `havoc_missions` | Своя: `stats_havoc_missions` | Havoc миссии |
-
-### 🏆 Рекорды миссий:
-
-| Статистика | Локализация | Описание |
-|-----------|-------------|----------|
-| `max_flawless_mission_in_a_row` | Своя: `stats_flawless_missions` | Максимальное количество безупречных миссий подряд |
-
-### 🔥 Havoc ранги:
-
-| Статистика | Локализация | Соответствует рангу |
-|-----------|-------------|---------------------|
-| `havoc_rank_reached_01` | Своя: `stats_havoc_rank` | Ранг 5 |
-| `havoc_rank_reached_02` | Своя: `stats_havoc_rank` | Ранг 10 |
-| `havoc_rank_reached_03` | Своя: `stats_havoc_rank` | Ранг 15 |
-| `havoc_rank_reached_04` | Своя: `stats_havoc_rank` | Ранг 20 |
-| `havoc_rank_reached_05` | Своя: `stats_havoc_rank` | Ранг 25 |
-| `havoc_rank_reached_06` | Своя: `stats_havoc_rank` | Ранг 30 |
-| `havoc_rank_reached_07` | Своя: `stats_havoc_rank` | Ранг 35 |
-| `havoc_rank_reached_08` | Своя: `stats_havoc_rank` | Ранг 40 |
-
-**Логика:** Проверяется от 08 до 01, возвращается первый найденный * 5.
+Все статистики миссий разбиты на **6 категорий** на основе исходников игры.
 
 ---
 
-## 💻 Пример кода для вкладки:
+## ОСНОВНЫЕ МИССИИ
 
+| Статистика | Локализация | Описание | Флаги |
+|-----------|-------------|----------|-------|
+| `missions` | Своя: `stats_missions` | Общее количество пройденных миссий | `backend` |
+| `auric_missions` | Своя: `stats_auric_missions` | Auric миссии (сложность 4-5) | `backend` |
+| `havoc_missions` | Своя: `stats_havoc_missions` | Havoc миссии | `backend` |
+| `mission_maelstrom` | Своя: `stats_maelstrom_missions` | Maelstrom миссии (flash missions) | `backend` |
+| `mission_auric_maelstrom` | Своя: `stats_auric_maelstrom_missions` | Auric Maelstrom миссии | `backend` |
+| `mission_circumstance` | Своя: `stats_circumstance_missions` | Миссии с обстоятельствами | `backend` |
+
+**Условия:**
+- `auric_missions`: `config.is_auric_mission == true`
+- `havoc_missions`: `config.is_havoc == true`
+- `mission_maelstrom`: `config.is_flash_mission == true`
+- `mission_auric_maelstrom`: `config.is_flash_mission and config.is_auric_mission`
+- `mission_circumstance`: миссии с активными обстоятельствами
+
+---
+
+## БЕЗУПРЕЧНЫЕ МИССИИ (FLAWLESS)
+
+| Статистика | Локализация | Описание | Условие |
+|-----------|-------------|----------|---------|
+| `max_flawless_mission_in_a_row` | Своя: `stats_flawless_missions` | Макс. безупречных миссий подряд | Сложность >= 3, без смертей и падений игрока |
+| `personal_flawless_auric` | Своя: `stats_personal_flawless_auric` | Личные безупречные Auric | Auric, без смертей игрока, joined <= 0.2 |
+| `team_flawless_missions` | Своя: `stats_team_flawless_missions` | Командные безупречные миссии | Без падений всей команды |
+| `flawless_auric_maelstrom` | Своя: `stats_flawless_auric_maelstrom` | Безупречные Auric Maelstrom | Auric + difficulty >= 5, без падений команды |
+| `flawless_auric_maelstrom_consecutive` | Своя: `stats_flawless_auric_maelstrom_consecutive` | Auric Maelstrom подряд | Flash + Auric + diff >= 5, без смертей игрока |
+| `flawless_havoc_won` | Своя: `stats_flawless_havoc_won` | Безупречные Havoc (ранг 35+) | Havoc rank >= 35, без смертей и падений |
+
+**Разница между типами flawless:**
+- **Personal**: без смертей **игрока** (`session_deaths == 0`)
+- **Team**: без падений **всей команды** (`team_knock_downs == 0`)
+- **Flawless in a row**: сбрасывается при смерти или падении игрока
+
+---
+
+## HAVOC
+
+| Статистика | Локализация | Описание |
+|-----------|-------------|----------|
+| `havoc_missions` | Своя: `stats_havoc_missions` | Всего Havoc миссий |
+| `havoc_win_assisted` | Своя: `stats_havoc_win_assisted` | Havoc победы (не владелец заказа) |
+| `havoc_rank_reached_01` | Своя: `stats_havoc_rank` | Ранг 5 достигнут |
+| `havoc_rank_reached_02` | Своя: `stats_havoc_rank` | Ранг 10 достигнут |
+| `havoc_rank_reached_03` | Своя: `stats_havoc_rank` | Ранг 15 достигнут |
+| `havoc_rank_reached_04` | Своя: `stats_havoc_rank` | Ранг 20 достигнут |
+| `havoc_rank_reached_05` | Своя: `stats_havoc_rank` | Ранг 25 достигнут |
+| `havoc_rank_reached_06` | Своя: `stats_havoc_rank` | Ранг 30 достигнут |
+| `havoc_rank_reached_07` | Своя: `stats_havoc_rank` | Ранг 35 достигнут |
+| `havoc_rank_reached_08` | Своя: `stats_havoc_rank` | Ранг 40 достигнут |
+
+**Логика определения ранга:**
 ```lua
--- tab_missions.lua
-
-local layout = {}
-
--- Основные миссии
-table.insert(layout, {
-    widget_type = "stat_line",
-    text = localize("stats_missions"),
-    value = format_number(safe_read_stat("missions"))
-})
-
-table.insert(layout, {
-    widget_type = "stat_line",
-    text = localize("stats_auric_missions"),
-    value = format_number(safe_read_stat("auric_missions"))
-})
-
-table.insert(layout, {
-    widget_type = "stat_line",
-    text = localize("stats_havoc_missions"),
-    value = format_number(safe_read_stat("havoc_missions"))
-})
-
--- Безупречные миссии
-table.insert(layout, {
-    widget_type = "stat_line",
-    text = localize("stats_flawless_missions"),
-    value = format_number(safe_read_stat("max_flawless_mission_in_a_row"))
-})
-
--- Havoc ранг (проверяем от высшего к низшему)
 local havoc_rank = 0
 for i = 8, 1, -1 do
     if safe_read_stat("havoc_rank_reached_0" .. i) > 0 then
@@ -76,7 +70,99 @@ for i = 8, 1, -1 do
         break
     end
 end
+```
 
+**Условия:**
+- `havoc_win_assisted`: `config.is_havoc and config.havoc_order_owner ~= config.account_id`
+- `havoc_rank_reached_XX`: `config.is_havoc and required_rank <= config.havoc_rank`
+
+---
+
+## TWINS МИССИИ
+
+| Статистика | Локализация | Описание |
+|-----------|-------------|----------|
+| `mission_twins` | Своя: `stats_mission_twins` | Twins миссии (макс. сложность) |
+| `mission_twins_hard_mode` | Своя: `stats_mission_twins_hard_mode` | Twins хард мод (сложность 5+) |
+| `mission_twins_secret_puzzle_trigger` | Своя: `stats_mission_twins_secret_puzzle` | Активация секретной головоломки |
+| `mission_twins_killed_successfully_within_x` | Своя: `stats_mission_twins_killed_within_x` | Оба Twins убиты за 5 секунд |
+| `mission_twins_no_mines_triggered` | Своя: `stats_mission_twins_no_mines` | Twins без активации мин |
+
+**Условия:**
+- Все: `circumstance_name == "player_journey_010"`
+- `mission_twins_hard_mode`: `has_hard_mode() and difficulty >= 5`
+- `mission_twins_killed_successfully_within_x`: оба босса (`renegade_twin_captain` + `renegade_twin_captain_two`) убиты с интервалом < 5 секунд
+
+---
+
+## МИССИИ ПО ЗОНАМ
+
+Формат: `zone_{zone_name}_missions_completed`
+
+| Зона | Статистика | Локализация игры |
+|------|-----------|------------------|
+| Dust | `zone_dust_missions_completed` | `loc_zone_dust` |
+| Entertainment | `zone_entertainment_missions_completed` | `loc_zone_entertainment` |
+| Operations | `zone_operations_missions_completed` | `loc_zone_operations` |
+| Tank Foundry | `zone_tank_foundry_missions_completed` | `loc_zone_tank_foundry` |
+| Throneside | `zone_throneside_missions_completed` | `loc_zone_throneside` |
+| Transit | `zone_transit_missions_completed` | `loc_zone_transit` |
+| Void | `zone_void_missions_completed` | `loc_zone_void` |
+| Watertown | `zone_watertown_missions_completed` | `loc_zone_watertown` |
+| Horde | `zone_horde_missions_completed` | `loc_horde_mission_breifing_zone` |
+
+**Примечание:** Зоны `hub`, `training_grounds`, `prologue`, `placeholder` не учитываются (имеют флаг `not_needed_for_penance`).
+
+**Условие:** `MissionTemplates[config.mission_name].zone_id == zone_id`
+
+---
+
+## РЕКОРДЫ МИССИЙ
+
+| Статистика | Локализация | Описание |
+|-----------|-------------|----------|
+| `lowest_damage_taken_on_win` | Своя: `stats_lowest_damage_taken` | Минимальный урон за победу |
+
+**Логика:** При победе (`mission_won`) сохраняется минимальное значение `session_damage_taken`.
+
+**Default:** `9999` (отображается только если меньше)
+
+---
+
+## 💻 Пример кода:
+
+```lua
+-- tab_missions.lua
+
+-- Основные миссии
+table.insert(layout, {widget_type = "stat_header", text = localize("stats_missions_main")})
+table.insert(layout, {
+    widget_type = "stat_line",
+    text = localize("stats_missions"),
+    value = format_number(safe_read_stat("missions"))
+})
+table.insert(layout, {
+    widget_type = "stat_line",
+    text = localize("stats_auric_missions"),
+    value = format_number(safe_read_stat("auric_missions"))
+})
+
+-- Flawless миссии
+table.insert(layout, {widget_type = "stat_header", text = localize("stats_flawless_header")})
+table.insert(layout, {
+    widget_type = "stat_line",
+    text = localize("stats_personal_flawless_auric"),
+    value = format_number(safe_read_stat("personal_flawless_auric"))
+})
+
+-- Havoc ранг
+local havoc_rank = 0
+for i = 8, 1, -1 do
+    if safe_read_stat("havoc_rank_reached_0" .. i) > 0 then
+        havoc_rank = i * 5
+        break
+    end
+end
 if havoc_rank > 0 then
     table.insert(layout, {
         widget_type = "stat_line",
@@ -84,90 +170,111 @@ if havoc_rank > 0 then
         value = format_number(havoc_rank)
     })
 end
+
+-- Зоны (только те где есть миссии)
+local zones = {
+    {key = "dust", loc_key = "loc_zone_dust"},
+    {key = "watertown", loc_key = "loc_zone_watertown"},
+    -- ... остальные
+}
+
+for _, zone in ipairs(zones) do
+    local stat_name = string.format("zone_%s_missions_completed", zone.key)
+    local count = safe_read_stat(stat_name)
+    if count > 0 then
+        table.insert(layout, {
+            widget_type = "stat_line",
+            text = localize(zone.loc_key),
+            value = format_number(count)
+        })
+    end
+end
 ```
 
 ---
 
-## 📋 Текущая реализация:
-
-Файл: `PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_missions.lua`
-
-Отображает:
-1. Общее количество миссий
-2. Auric миссии
-3. Havoc миссии
-4. Безупречные миссии подряд
-5. Максимальный достигнутый Havoc ранг
-
----
-
-## 🔧 Дополнительные статистики миссий (не реализовано):
-
-### Специальные типы миссий:
-
-| Статистика | Описание |
-|-----------|----------|
-| `personal_flawless_auric` | Безупречные Auric миссии (без смертей игрока) |
-| `mission_maelstrom` | Maelstrom миссии |
-| `mission_auric_maelstrom` | Auric Maelstrom миссии |
-| `flawless_auric_maelstrom` | Безупречные Auric Maelstrom |
-| `mission_circumstance` | Миссии с обстоятельствами |
-| `havoc_win_assisted` | Победы в Havoc (не владелец заказа) |
-| `flawless_havoc_won` | Безупречные Havoc (ранг >= 35) |
+## 🔧 Дополнительные статистики (не реализовано):
 
 ### Миссии по типам:
 
-Формат: `mission_<mission_name>_difficulty_<1-5>`
+Формат: `mission_{mission_name}_difficulty_{1-5}`
 
 Примеры:
 - `mission_cm_raid_difficulty_5`
 - `mission_dm_stockpile_difficulty_4`
 - `mission_lm_scavenge_difficulty_3`
 
-### Миссии по зонам:
+### Миссии по типам и аркетипам:
 
-Формат: `zone_<zone_name>_missions_completed`
+Формат: `mission_type_{type_index}_max_difficulty_{archetype_name}`
 
 Примеры:
-- `zone_watertown_missions_completed`
-- `zone_hub_ship_missions_completed`
+- `mission_type_1_max_difficulty_veteran`
+- `mission_type_2_max_difficulty_zealot`
 
-### Twins миссии:
+### Миссии по архетипам:
 
-| Статистика | Описание |
-|-----------|----------|
-| `mission_twins` | Twins миссии (максимальная сложность) |
-| `mission_twins_hard_mode` | Twins хард мод (сложность 5+) |
-| `mission_twins_secret_puzzle_trigger` | Активация секретной головоломки |
-| `mission_twins_killed_successfully_within_x` | Убийство Twins за X секунд |
-| `mission_twins_no_mines_triggered` | Без активации мин |
+Формат: `missions_{archetype_name}_2_difficulty_{1-5}`
+
+Примеры:
+- `missions_veteran_2_difficulty_5`
+- `missions_psyker_2_difficulty_4`
 
 ---
 
-## 📝 Локализация в файле мода:
+## 🔍 Проверка через консоль:
 
-Файл: `PlayerProgressStats/scripts/mods/PlayerProgressStats/PlayerProgressStats_localization.lua`
+```bash
+# Основные миссии
+/check_stat missions
+/check_stat auric_missions
+/check_stat havoc_missions
 
-```lua
-stats_missions = {
-    en = "Missions Completed",
-    ru = "Пройдено миссий",
-},
-stats_auric_missions = {
-    en = "Auric Missions",
-    ru = "Auric миссий",
-},
-stats_havoc_missions = {
-    en = "Havoc Missions",
-    ru = "Havoc миссий",
-},
-stats_flawless_missions = {
-    en = "Flawless Missions in a Row",
-    ru = "Безупречных миссий подряд",
-},
-stats_havoc_rank = {
-    en = "Havoc Rank Reached",
-    ru = "Достигнут Havoc ранг",
-},
+# Flawless
+/check_stat max_flawless_mission_in_a_row
+/check_stat personal_flawless_auric
+
+# Twins
+/check_stat mission_twins
+/check_stat mission_twins_hard_mode
+
+# Зоны
+/check_stat zone_watertown_missions_completed
+/check_stat zone_dust_missions_completed
+
+# Локализация зон
+/check_loc loc_zone_watertown
+/check_loc loc_zone_dust
 ```
 
+---
+
+## 📖 Дополнительная документация:
+
+- [`enemy_categorization.md`](enemy_categorization.md) - Категоризация врагов
+- [`stats_general.md`](stats_general.md) - Общие статистики
+- [`STATS_REFERENCE.md`](../STATS_REFERENCE.md) - Главный справочник
+
+---
+
+## 🎯 Источники данных:
+
+### Файлы исходников:
+- `Darktide-Source-Code/scripts/managers/stats/stat_definitions.lua` (строки 1337-2236)
+- `Darktide-Source-Code/scripts/settings/zones/zones.lua`
+- `Darktide-Source-Code/scripts/settings/mission/mission_templates.lua`
+- `Darktide-Source-Code/scripts/settings/mission/mission_types.lua`
+
+### Ключевые секции:
+- Строка 1337: `StatDefinitions.missions`
+- Строка 1348: `StatDefinitions.auric_missions`
+- Строка 1532-1718: Twins missions
+- Строка 1939-1966: Zone missions (динамическая генерация)
+- Строка 2061-2110: Flawless missions
+- Строка 2151-2236: Havoc missions
+
+---
+
+**Версия:** 2.0  
+**Обновлено:** 2025-12-02  
+**Источник:** Darktide Source Code stat_definitions.lua
