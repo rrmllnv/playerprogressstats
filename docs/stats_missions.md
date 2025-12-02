@@ -147,12 +147,13 @@ table.insert(layout, {
     value = format_number(safe_read_stat("auric_missions"))
 })
 
--- Flawless миссии
+-- Flawless миссии С ПОДСКАЗКАМИ (tooltip при наведении)
 table.insert(layout, {widget_type = "stat_header", text = localize("stats_flawless_header")})
 table.insert(layout, {
-    widget_type = "stat_line",
+    widget_type = "stat_line_tooltip",  -- Специальный blueprint с поддержкой tooltip
     text = localize("stats_personal_flawless_auric"),
-    value = format_number(safe_read_stat("personal_flawless_auric"))
+    value = format_number(safe_read_stat("personal_flawless_auric")),
+    tooltip = localize("tooltip_personal_flawless_auric")  -- Подсказка при наведении
 })
 
 -- Havoc ранг
@@ -190,6 +191,70 @@ for _, zone in ipairs(zones) do
     end
 end
 ```
+
+---
+
+## 💡 ПОДСКАЗКИ ПРИ НАВЕДЕНИИ (TOOLTIPS)
+
+Для **Flawless миссий** реализованы всплывающие подсказки при наведении мыши.
+
+### Как это работает:
+
+1. **Новый blueprint:** `stat_line_tooltip`
+   - Хранит tooltip текст в `widget.content.tooltip`
+   - Обычная высота строки (34px)
+   
+2. **Floating tooltip widget:**
+   - Отдельный widget с z-index = 200
+   - Плавает НАД элементом при hover
+   - Не накладывается на текст
+   - Динамический размер по тексту
+
+3. **Использование:**
+```lua
+table.insert(layout, {
+    widget_type = "stat_line_tooltip",  -- Вместо "stat_line"
+    text = localize("stats_flawless_missions"),
+    value = format_number(safe_read_stat("max_flawless_mission_in_a_row")),
+    tooltip = localize("tooltip_flawless_missions")  -- Новый параметр
+})
+```
+
+3. **Локализация tooltips:**
+```lua
+-- PlayerProgressStats_localization.lua
+tooltip_flawless_missions = {
+    en = "Difficulty 3+, no deaths or downs (player)",
+    ru = "Сложность 3+, без смертей и падений (игрок)",
+},
+tooltip_personal_flawless_auric = {
+    en = "Auric, no player deaths, joined ≤20%%",  -- %% = символ %
+    ru = "Auric, без смертей игрока, вход ≤20%%",
+},
+```
+
+**⚠️ Важно:** Символ `%` нужно экранировать как `%%` в Lua!
+
+### Почему это полезно:
+
+- ❓ **Flawless миссии** имеют сложные условия
+- 📝 Подсказки объясняют условия без загромождения UI
+- 🎯 Пользователь видит детали только при наведении
+- 🌐 Поддержка локализации на всех языках
+- ✅ Реализовано **по аналогии с DMF** (floating widget, не накладывается на текст)
+
+### Доступные подсказки:
+
+| Статистика | Tooltip ключ | Условие |
+|-----------|--------------|---------|
+| Max Flawless | `tooltip_flawless_missions` | Сложность 3+, без смертей/падений игрока |
+| Personal Flawless Auric | `tooltip_personal_flawless_auric` | Auric, без смертей, вход ≤20%% (символ %% экранирован) |
+| Team Flawless | `tooltip_team_flawless_missions` | Без падений команды |
+| Flawless Auric Maelstrom | `tooltip_flawless_auric_maelstrom` | Auric + Diff 5+, без падений команды |
+| Flawless Auric Maelstrom Consecutive | `tooltip_flawless_auric_maelstrom_consecutive` | Flash + Auric + Diff 5+, без смертей игрока |
+| Flawless Havoc | `tooltip_flawless_havoc_won` | Havoc 35+, без смертей/падений команды |
+
+**⚠️ Важно:** Если в tooltip нужен символ `%`, экранируйте его как `%%` в локализации!
 
 ---
 

@@ -11,7 +11,9 @@ local DEBUG = true
 local ViewElementGrid = require("scripts/ui/view_elements/view_element_grid/view_element_grid")
 local ViewElementInputLegend = require("scripts/ui/view_elements/view_element_input_legend/view_element_input_legend")
 local UIFontSettings = require("scripts/managers/ui/ui_font_settings")
+local UIFonts = require("scripts/managers/ui/ui_fonts")
 local UIWidget = require("scripts/managers/ui/ui_widget")
+local UIRenderer = require("scripts/managers/ui/ui_renderer")
 local ScrollbarPassTemplates = require("scripts/ui/pass_templates/scrollbar_pass_templates")
 local ButtonPassTemplates = require("scripts/ui/pass_templates/button_pass_templates")
 local UIWorkspaceSettings = require("scripts/settings/ui/ui_workspace_settings")
@@ -73,8 +75,8 @@ local stat_line_blueprint = {
                 text_horizontal_alignment = "left",
                 font_type = UIFontSettings.list_button.font_type or "proxima_nova_bold",
                 font_size = UIFontSettings.list_button.font_size or 24,
-                text_color = Color.terminal_text_header(255, true),
-                default_color = Color.terminal_text_header(255, true),
+                text_color = Color.terminal_text_body(255, true),
+                default_color = Color.terminal_text_body(255, true),
                 hover_color = Color.terminal_text_header_selected(255, true),
                 offset = {10, 0, 1},
             },
@@ -122,6 +124,104 @@ local stat_line_blueprint = {
     end,
 }
 
+-- Двухстрочный blueprint с описанием под основным текстом
+local stat_line_with_description_blueprint = {
+    size = {grid_size[1] - 20, 60},
+    size_function = function()
+        return {grid_size[1] - 20, 60}
+    end,
+    pass_template = {
+        {
+            content_id = "hotspot",
+            pass_type = "hotspot",
+            content = {
+                use_is_focused = false,
+            },
+        },
+        {
+            pass_type = "texture",
+            value = "content/ui/materials/backgrounds/default_square",
+            style = {
+                color = Color.terminal_background_selected(0, true),
+                offset = {0, 0, 0},
+            },
+            change_function = function(content, style)
+                local hotspot = content.hotspot
+                local hover_progress = hotspot.anim_hover_progress or 0
+                local alpha = 100 * hover_progress
+                style.color[1] = alpha
+            end,
+        },
+        {
+            pass_type = "text",
+            value_id = "text",
+            style = {
+                text_vertical_alignment = "top",
+                text_horizontal_alignment = "left",
+                font_type = UIFontSettings.list_button.font_type or "proxima_nova_bold",
+                font_size = UIFontSettings.list_button.font_size or 24,
+                text_color = Color.terminal_text_body(255, true),
+                default_color = Color.terminal_text_body(255, true),
+                hover_color = Color.terminal_text_header_selected(255, true),
+                offset = {10, 8, 1},
+            },
+            change_function = function(content, style)
+                local hotspot = content.hotspot
+                local default_color = style.default_color
+                local hover_color = style.hover_color
+                local hover_progress = hotspot.anim_hover_progress or 0
+                local color = style.text_color
+                
+                color[2] = math.lerp(default_color[2], hover_color[2], hover_progress)
+                color[3] = math.lerp(default_color[3], hover_color[3], hover_progress)
+                color[4] = math.lerp(default_color[4], hover_color[4], hover_progress)
+            end,
+        },
+        {
+            pass_type = "text",
+            value_id = "value",
+            style = {
+                text_vertical_alignment = "top",
+                text_horizontal_alignment = "right",
+                font_type = UIFontSettings.list_button.font_type or "proxima_nova_bold",
+                font_size = UIFontSettings.list_button.font_size or 24,
+                text_color = Color.terminal_text_header(255, true),
+                default_color = Color.terminal_text_header(255, true),
+                hover_color = Color.terminal_text_header_selected(255, true),
+                offset = {-10, 8, 1},
+            },
+            change_function = function(content, style)
+                local hotspot = content.hotspot
+                local default_color = style.default_color
+                local hover_color = style.hover_color
+                local hover_progress = hotspot.anim_hover_progress or 0
+                local color = style.text_color
+                
+                color[2] = math.lerp(default_color[2], hover_color[2], hover_progress)
+                color[3] = math.lerp(default_color[3], hover_color[3], hover_progress)
+                color[4] = math.lerp(default_color[4], hover_color[4], hover_progress)
+            end,
+        },
+        {
+            pass_type = "text",
+            value_id = "description",
+            style = {
+                text_vertical_alignment = "bottom",
+                text_horizontal_alignment = "left",
+                font_type = "proxima_nova_bold",
+                font_size = 18,
+                text_color = Color.terminal_text_body_dark(180, true),
+                offset = {20, -8, 1},
+            },
+        },
+    },
+    init = function(_, widget, element)
+        widget.content.text = element.text or ""
+        widget.content.value = element.value or ""
+        widget.content.description = element.description or ""
+    end,
+}
+
 local stat_header_blueprint = {
     size = {grid_size[1] - 20, 40},
     size_function = function()
@@ -135,7 +235,7 @@ local stat_header_blueprint = {
                 text_vertical_alignment = "center",
                 text_horizontal_alignment = "left",
                 font_type = UIFontSettings.list_button.font_type or "glass_gothic_medium",
-                font_size = (UIFontSettings.list_button.font_size or 24) + 2,
+                font_size = (UIFontSettings.list_button.font_size or 24) + 6,
                 text_color = Color.terminal_text_header(255, true),
                 offset = {10, 0, 1},
             },
@@ -232,6 +332,7 @@ local debug_line_blueprint = {
 
 local blueprints = {
     stat_line = stat_line_blueprint,
+    stat_line_with_description = stat_line_with_description_blueprint,
     stat_header = stat_header_blueprint,
 }
 
@@ -464,7 +565,7 @@ PlayerProgressStatsView._setup_stats_grid = function(self)
         enable_gamepad_scrolling = true,
     }
 
-    local layer = 20
+    local layer = 10
     self._stats_grid = self:_add_element(ViewElementGrid, "stats_grid", layer, grid_settings, "grid_pivot")
 
     self:_update_grid_content()
@@ -635,7 +736,7 @@ PlayerProgressStatsView.on_exit = function(self)
         self._input_legend_element = nil
         self:_remove_element("input_legend")
     end
-
+    
     PlayerProgressStatsView.super.on_exit(self)
 end
 
