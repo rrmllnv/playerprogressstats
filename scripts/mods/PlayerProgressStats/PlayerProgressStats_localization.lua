@@ -173,7 +173,7 @@ return {
 	-- Враги - Специальные
 	stats_specials = {
 		en = "SPECIALS",
-		ru = "СПЕЦВРАГИ",
+		ru = "СПЕЦИАЛИСТЫ",
 	},
 	-- Враги - Орда
 	stats_horde = {

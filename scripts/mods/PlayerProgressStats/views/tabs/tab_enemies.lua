@@ -178,24 +178,22 @@ TabEnemies.create_layout = function(safe_read_stat, localize, format_number)
         value = format_number(mutant)
     })
     
-    -- Flamer (все типы)
-    local flamer = safe_read_stat("total_renegade_flamer_killed") + 
-                   safe_read_stat("total_renegade_flamer_mutator_killed") + 
-                   safe_read_stat("total_cultist_flamer_killed")
+    -- Renegade Flamer (обычный + mutator)
+    local renegade_flamer = safe_read_stat("total_renegade_flamer_killed") + 
+                            safe_read_stat("total_renegade_flamer_mutator_killed")
     table.insert(layout, {
         widget_type = "stat_line", 
         text = localize("loc_breed_display_name_renegade_flamer"), 
-        value = format_number(flamer)
+        value = format_number(renegade_flamer)
     })
     
-    -- Grenadier (оба типа)
-    local grenadier = safe_read_stat("total_renegade_grenadier_killed") + safe_read_stat("total_cultist_grenadier_killed")
+    -- Renegade Grenadier
     table.insert(layout, {
         widget_type = "stat_line", 
         text = localize("loc_breed_display_name_renegade_grenadier"), 
-        value = format_number(grenadier)
+        value = format_number(safe_read_stat("total_renegade_grenadier_killed"))
     })
-    
+        
     -- Sniper
     table.insert(layout, {
         widget_type = "stat_line", 
@@ -209,29 +207,19 @@ TabEnemies.create_layout = function(safe_read_stat, localize, format_number)
         text = localize("loc_breed_display_name_renegade_netgunner"), 
         value = format_number(safe_read_stat("total_renegade_netgunner_killed"))
     })
-    
-    table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
-    
-    -- ============================
-    -- 🧟 ОРДА (tags.horde = true)
-    -- ============================
-    table.insert(layout, {widget_type = "stat_header", text = localize("stats_horde")})
-    
-    -- Poxwalker (все виды)
-    local poxwalker = safe_read_stat("total_chaos_poxwalker_killed") + 
-                      safe_read_stat("total_chaos_mutated_poxwalker_killed") + 
-                      safe_read_stat("total_chaos_lesser_mutated_poxwalker_killed")
+
+    -- Cultist Flamer
     table.insert(layout, {
         widget_type = "stat_line", 
-        text = localize("loc_breed_display_name_chaos_poxwalker"), 
-        value = format_number(poxwalker)
+        text = localize("loc_breed_display_name_cultist_flamer"), 
+        value = format_number(safe_read_stat("total_cultist_flamer_killed"))
     })
-    
-    -- Newly Infected
+
+    -- Cultist Grenadier
     table.insert(layout, {
         widget_type = "stat_line", 
-        text = localize("loc_breed_display_name_chaos_newly_infected"), 
-        value = format_number(safe_read_stat("total_chaos_newly_infected_killed"))
+        text = localize("loc_breed_display_name_cultist_grenadier"), 
+        value = format_number(safe_read_stat("total_cultist_grenadier_killed"))
     })
     
     table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
@@ -273,6 +261,30 @@ TabEnemies.create_layout = function(safe_read_stat, localize, format_number)
         value = format_number(safe_read_stat("total_cultist_assault_killed"))
     })
 
+    table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
+
+    -- ============================
+    -- 🧟 ОРДА (tags.horde = true)
+    -- ============================
+    table.insert(layout, {widget_type = "stat_header", text = localize("stats_horde")})
+    
+    -- Poxwalker (все виды)
+    local poxwalker = safe_read_stat("total_chaos_poxwalker_killed") + 
+                      safe_read_stat("total_chaos_mutated_poxwalker_killed") + 
+                      safe_read_stat("total_chaos_lesser_mutated_poxwalker_killed")
+    table.insert(layout, {
+        widget_type = "stat_line", 
+        text = localize("loc_breed_display_name_chaos_poxwalker"), 
+        value = format_number(poxwalker)
+    })
+    
+    -- Newly Infected
+    table.insert(layout, {
+        widget_type = "stat_line", 
+        text = localize("loc_breed_display_name_chaos_newly_infected"), 
+        value = format_number(safe_read_stat("total_chaos_newly_infected_killed"))
+    })
+    
     return layout
 end
 

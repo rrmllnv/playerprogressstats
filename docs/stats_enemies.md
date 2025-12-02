@@ -8,7 +8,7 @@
 
 ---
 
-## 👹 БОССЫ (is_boss = true)
+## БОССЫ (is_boss = true)
 
 | Статистика | Локализация | В моде |
 |-----------|-------------|--------|
@@ -26,7 +26,7 @@
 
 ---
 
-## 🛡️ ЭЛИТЫ (tags.elite = true)
+## ЭЛИТЫ (tags.elite = true)
 
 ### Chaos Ogryn Elites:
 | Статистика | Локализация | Теги |
@@ -54,7 +54,7 @@
 
 ---
 
-## ⚡ СПЕЦИАЛИСТЫ (tags.special = true)
+## СПЕЦИАЛИСТЫ (tags.special = true)
 
 | Статистика | Локализация | Теги | В моде |
 |-----------|-------------|------|--------|
@@ -63,23 +63,27 @@
 | `total_chaos_hound_mutator_killed` | `loc_breed_display_name_chaos_hound` | disabler, mutator | ✅ (сумма) |
 | `total_cultist_mutant_killed` | `loc_breed_display_name_cultist_mutant` | disabler | ✅ (сумма) |
 | `total_cultist_mutant_mutator_killed` | `loc_breed_display_name_cultist_mutant` | disabler, mutator | ✅ (сумма) |
-| `total_cultist_flamer_killed` | `loc_breed_display_name_cultist_flamer` | scrambler | ✅ (в сумме) |
-| `total_cultist_grenadier_killed` | `loc_breed_display_name_cultist_grenadier` | - | ✅ (сумма) |
+| `total_cultist_flamer_killed` | `loc_breed_display_name_cultist_flamer` | scrambler | ✅ отдельно |
+| `total_cultist_grenadier_killed` | `loc_breed_display_name_cultist_grenadier` | - | ✅ отдельно |
 | `total_renegade_flamer_killed` | `loc_breed_display_name_renegade_flamer` | scrambler | ✅ (сумма) |
 | `total_renegade_flamer_mutator_killed` | `loc_breed_display_name_renegade_flamer` | mutator, scrambler | ✅ (сумма) |
-| `total_renegade_grenadier_killed` | `loc_breed_display_name_renegade_grenadier` | scrambler | ✅ (сумма) |
+| `total_renegade_grenadier_killed` | `loc_breed_display_name_renegade_grenadier` | scrambler | ✅ отдельно |
 | `total_renegade_sniper_killed` | `loc_breed_display_name_renegade_sniper` | sniper | ✅ |
 | `total_renegade_netgunner_killed` | `loc_breed_display_name_renegade_netgunner` | disabler | ✅ |
 
 **Суммирование в моде:**
-- Hound = обычный + mutator
-- Mutant = обычный + mutator
-- Flamer = renegade + renegade_mutator + cultist
-- Grenadier = renegade + cultist
+- Hound = обычный + mutator (один враг)
+- Mutant = обычный + mutator (один враг)
+- Renegade Flamer = обычный + mutator (один враг)
+- Cultist Flamer = показывается отдельно
+- Renegade Grenadier = показывается отдельно
+- Cultist Grenadier = показывается отдельно
+
+**Важно:** Враги из разных фракций НЕ объединяются!
 
 ---
 
-## 🧟 ОРДА (tags.horde = true)
+## ОРДА (tags.horde = true)
 
 | Статистика | Локализация | Доп. теги |
 |-----------|-------------|-----------|
@@ -93,7 +97,7 @@
 
 ---
 
-## 👥 ROAMERS (tags.roamer = true)
+## ROAMERS (tags.roamer = true)
 
 Базовые враги патрулирующие уровни:
 
@@ -118,7 +122,7 @@
 -- tab_enemies.lua
 
 -- Боссы
-table.insert(layout, {widget_type = "stat_header", text = "👹 " .. localize("stats_bosses")})
+table.insert(layout, {widget_type = "stat_header", text = localize("stats_bosses")})
 table.insert(layout, {
     widget_type = "stat_line",
     text = localize("loc_breed_display_name_chaos_daemonhost"),
@@ -126,11 +130,28 @@ table.insert(layout, {
 })
 
 -- Элиты
-table.insert(layout, {widget_type = "stat_header", text = "🛡️ " .. localize("stats_elites")})
+table.insert(layout, {widget_type = "stat_header", text = localize("stats_elites")})
 table.insert(layout, {
     widget_type = "stat_line",
     text = localize("loc_breed_display_name_chaos_ogryn_gunner"),
     value = format_number(safe_read_stat("total_chaos_ogryn_gunner_killed"))
+})
+
+-- Специалисты (разные фракции показываются отдельно)
+-- Renegade Flamer (обычный + mutator)
+local renegade_flamer = safe_read_stat("total_renegade_flamer_killed") + 
+                        safe_read_stat("total_renegade_flamer_mutator_killed")
+table.insert(layout, {
+    widget_type = "stat_line",
+    text = localize("loc_breed_display_name_renegade_flamer"),
+    value = format_number(renegade_flamer)
+})
+
+-- Cultist Flamer (отдельно)
+table.insert(layout, {
+    widget_type = "stat_line",
+    text = localize("loc_breed_display_name_cultist_flamer"),
+    value = format_number(safe_read_stat("total_cultist_flamer_killed"))
 })
 ```
 
