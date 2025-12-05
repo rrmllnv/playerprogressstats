@@ -14,6 +14,7 @@ constants.tabs_definitions = {
 	{key = "tab_general", fallback = "GENERAL"},
 	{key = "tab_enemies", fallback = "ENEMIES"},
 	{key = "tab_missions", fallback = "MISSIONS"},
+	{key = "tab_mission_progress", fallback = "MISSION PROGRESS"},
 	{key = "tab_records", fallback = "RECORDS"},
 }
 

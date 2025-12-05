@@ -199,8 +199,6 @@ TabMissions.create_layout = function(safe_read_stat, localize, format_number)
         end
     end
     
-    table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
-    
     return layout
 end
 

@@ -20,7 +20,7 @@ load("PlayerProgressStats/scripts/mods/PlayerProgressStats/localization/tab_gene
 load("PlayerProgressStats/scripts/mods/PlayerProgressStats/localization/tab_enemies")
 load("PlayerProgressStats/scripts/mods/PlayerProgressStats/localization/tab_records")
 load("PlayerProgressStats/scripts/mods/PlayerProgressStats/localization/tab_missions")
-load("PlayerProgressStats/scripts/mods/PlayerProgressStats/localization/tab_defense")
+load("PlayerProgressStats/scripts/mods/PlayerProgressStats/localization/tab_mission_progress")
 load("PlayerProgressStats/scripts/mods/PlayerProgressStats/localization/tab_localization")
 
 return localization

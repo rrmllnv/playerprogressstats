@@ -192,5 +192,31 @@ return {
 		en = "Missions completed in this zone",
 		ru = "Миссии завершенные в этой зоне",
 	},
+
+	-- Миссии по картам и сложностям
+	stats_missions_by_map = {
+		en = "MISSIONS BY MAP & DIFFICULTY",
+		ru = "МИССИИ ПО КАРТАМ И СЛОЖНОСТЯМ",
+	},
+	stats_difficulty_1 = {
+		en = "Difficulty 1",
+		ru = "Сложность 1",
+	},
+	stats_difficulty_2 = {
+		en = "Difficulty 2",
+		ru = "Сложность 2",
+	},
+	stats_difficulty_3 = {
+		en = "Difficulty 3",
+		ru = "Сложность 3",
+	},
+	stats_difficulty_4 = {
+		en = "Difficulty 4",
+		ru = "Сложность 4",
+	},
+	stats_difficulty_5 = {
+		en = "Difficulty 5",
+		ru = "Сложность 5",
+	},
 }
 
