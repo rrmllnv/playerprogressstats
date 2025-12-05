@@ -36,6 +36,17 @@ TabGeneral.create_layout = function(safe_read_stat, localize, format_number)
         table.insert(layout, {widget_type = "stat_line", text = localize("stats_other_kills"), value = format_number(other_kills)})
     end
 
+    table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
+    table.insert(layout, {widget_type = "stat_line", text = localize("stats_player_rescues"), value = format_number(safe_read_stat("total_player_rescues"))})
+    table.insert(layout, {widget_type = "stat_line", text = localize("stats_player_assists"), value = format_number(safe_read_stat("total_player_assists"))})
+    
+    table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
+    table.insert(layout, {widget_type = "stat_line", text = localize("stats_sprint_dodges"), value = format_number(safe_read_stat("total_sprint_dodges"))})
+    table.insert(layout, {widget_type = "stat_line", text = localize("stats_slide_dodges"), value = format_number(safe_read_stat("total_slide_dodges"))})
+
+    --table.insert(layout, {widget_type = "stat_line", text = localize("stats_coherency_toughness"), value = format_number(safe_read_stat("total_coherency_toughness"))})
+    --table.insert(layout, {widget_type = "stat_line", text = localize("stats_melee_toughness_regen"), value = format_number(safe_read_stat("total_melee_toughness_regen"))})
+
     return layout
 end
 

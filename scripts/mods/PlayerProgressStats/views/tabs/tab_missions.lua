@@ -181,6 +181,9 @@ TabMissions.create_layout = function(safe_read_stat, localize, format_number)
         {key = "void", loc_key = "loc_zone_void"},
         {key = "watertown", loc_key = "loc_zone_watertown"},
         {key = "horde", loc_key = "loc_horde_mission_breifing_zone"},
+        -- Новые зоны
+        {key = "hourglass", loc_key = "loc_zone_name_hourglass_short"},
+        {key = "carnival", loc_key = "loc_zone_name_carnival_short"},
     }
     
     for _, zone in ipairs(zones) do
@@ -198,21 +201,6 @@ TabMissions.create_layout = function(safe_read_stat, localize, format_number)
     
     table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
     
-    -- ============================
-    -- РЕКОРДЫ
-    -- ============================
-    table.insert(layout, {widget_type = "stat_header", text = localize("stats_mission_records")})
-    
-    local lowest_damage = safe_read_stat("lowest_damage_taken_on_win")
-    if lowest_damage > 0 and lowest_damage < 9999 then
-        table.insert(layout, {
-            widget_type = "stat_line_with_description",
-            text = localize("stats_lowest_damage_taken"),
-            value = format_number(lowest_damage),
-            description = localize("description_lowest_damage_taken")
-        })
-    end
-
     return layout
 end
 

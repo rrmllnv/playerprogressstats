@@ -15,7 +15,6 @@ constants.tabs_definitions = {
 	{key = "tab_enemies", fallback = "ENEMIES"},
 	{key = "tab_missions", fallback = "MISSIONS"},
 	{key = "tab_records", fallback = "RECORDS"},
-	{key = "tab_defense", fallback = "DEFENSE"},
 }
 
 if constants.DEBUG then

@@ -42,5 +42,29 @@ return {
 		en = "Other Kills",
 		ru = "Прочие убийства",
 	},
+	stats_sprint_dodges = {
+		en = "Sprint Dodges",
+		ru = "Уклонений спринтом",
+	},
+	stats_slide_dodges = {
+		en = "Slide Dodges",
+		ru = "Уклонений скольжением",
+	},
+	stats_player_rescues = {
+		en = "Player Rescues",
+		ru = "Спасения игроков",
+	},
+	stats_player_assists = {
+		en = "Player Assists",
+		ru = "Помощи игрокам",
+	},
+	stats_coherency_toughness = {
+		en = "Coherency Toughness",
+		ru = "Стойкость от сплоченности",
+	},
+	stats_melee_toughness_regen = {
+		en = "Melee Toughness Regen",
+		ru = "Восст. стойкости в ближнем бою",
+	},
 }
 
