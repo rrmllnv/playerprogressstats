@@ -36,7 +36,7 @@ end
 local function register_views()
 	for _, view_template in pairs(view_templates) do
 		local path = view_template.view_settings.path
-		mod:add_require_path(path)
+			mod:add_require_path(path)
 		mod:register_view(view_template)
 	end
 end
