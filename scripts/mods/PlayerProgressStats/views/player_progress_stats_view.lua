@@ -23,11 +23,8 @@ local TabGeneral = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgres
 local TabEnemies = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_enemies")
 local TabMissions = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_missions")
 local TabRecords = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_records")
-local TabDefense = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_defense")
-
 -- Отладочные вкладки (только если DEBUG = true)
 local TabLocalizationDebug = DEBUG and mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_localization_debug") or nil
-local TabLocalizationCheck = DEBUG and mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_localization_check") or nil
 
 local Color = Color
 local hud_body_font_settings = UIFontSettings.hud_body or {}
@@ -346,13 +343,11 @@ local tabs_definitions = {
     {key = "tab_enemies", fallback = "ENEMIES"},
     {key = "tab_missions", fallback = "MISSIONS"},
     {key = "tab_records", fallback = "RECORDS"},
-    {key = "tab_defense", fallback = "DEFENSE"},
 }
 
 -- Добавляем отладочные вкладки если DEBUG = true
 if DEBUG then
     table.insert(tabs_definitions, {key = "tab_localization_debug", fallback = "🔍 LOCALIZATION"})
-    table.insert(tabs_definitions, {key = "tab_localization_check", fallback = "✅ LOC CHECK"})
 end
 
 local scenegraph_definition = {
@@ -684,13 +679,9 @@ PlayerProgressStatsView._create_stat_layout = function(self)
         return TabMissions.create_layout(safe_read_stat, localize, format_number)
     elseif tab_index == 4 then
         return TabRecords.create_layout(safe_read_stat, localize, format_number)
-    elseif tab_index == 5 then
-        return TabDefense.create_layout(safe_read_stat, localize, format_number)
     elseif DEBUG then
-        if tab_index == 6 and TabLocalizationDebug then
+        if tab_index == 5 and TabLocalizationDebug then
             return TabLocalizationDebug.create_layout(safe_read_stat, localize, format_number)
-        elseif tab_index == 7 and TabLocalizationCheck then
-            return TabLocalizationCheck.create_layout(safe_read_stat, localize, format_number)
         end
     end
     

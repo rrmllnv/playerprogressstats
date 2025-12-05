@@ -15,12 +15,8 @@ local tab_modules = {
 
 if constants.DEBUG then
 	local TabLocalizationDebug = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_localization_debug")
-	local TabLocalizationCheck = mod:io_dofile("PlayerProgressStats/scripts/mods/PlayerProgressStats/views/tabs/tab_localization_check")
 	if TabLocalizationDebug then
 		table.insert(tab_modules, TabLocalizationDebug)
-	end
-	if TabLocalizationCheck then
-		table.insert(tab_modules, TabLocalizationCheck)
 	end
 end
 

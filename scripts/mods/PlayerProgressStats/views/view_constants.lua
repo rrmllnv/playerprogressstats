@@ -19,7 +19,6 @@ constants.tabs_definitions = {
 
 if constants.DEBUG then
 	table.insert(constants.tabs_definitions, {key = "tab_localization_debug", fallback = "🔍 LOCALIZATION"})
-	table.insert(constants.tabs_definitions, {key = "tab_localization_check", fallback = "✅ LOC CHECK"})
 end
 
 constants.legend_inputs = {
