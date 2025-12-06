@@ -64,7 +64,7 @@ TabMissionProgress.create_layout = function(safe_read_stat, localize, format_num
 
                 if val ~= nil then
                     if not has_any then
-						table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
+						
                         table.insert(layout, {widget_type = "stat_header", text = string.format("%s:", mission_name)})
                         has_any = true
                         any_data = true
@@ -79,6 +79,8 @@ TabMissionProgress.create_layout = function(safe_read_stat, localize, format_num
                     })
                 end
             end
+
+            table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
         end
     end
 

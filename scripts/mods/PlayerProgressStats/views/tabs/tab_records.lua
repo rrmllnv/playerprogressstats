@@ -60,6 +60,8 @@ TabRecords.create_layout = function(safe_read_stat, localize, format_number)
         })
     end
 
+    table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
+
     -- Оборона / командные
     table.insert(layout, {widget_type = "stat_header", text = localize("stats_records_defense")})
     table.insert(layout, {
@@ -127,6 +129,8 @@ TabRecords.create_layout = function(safe_read_stat, localize, format_number)
         description = Localize("loc_achievement_mission_no_damage_description")
     })
 
+    table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
+
     -- Класс: Veteran
     table.insert(layout, {widget_type = "stat_header", text = localize("stats_records_veteran")})
     table.insert(layout, {
@@ -154,6 +158,8 @@ TabRecords.create_layout = function(safe_read_stat, localize, format_number)
         description = Localize("loc_achievement_veteran_2_no_melee_damage_taken_description"),
     })
 
+    table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
+
     -- Класс: Zealot
     table.insert(layout, {widget_type = "stat_header", text = localize("stats_records_zealot")})
     table.insert(layout, {
@@ -174,6 +180,8 @@ TabRecords.create_layout = function(safe_read_stat, localize, format_number)
         value = format_number(safe_read_stat("max_zealot_2_health_healed_with_leech_during_resist_death")),
         description = Localize("loc_achievement_zealot_2_healed_up_after_resisting_death_description"),
     })
+
+    table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
 
     -- Класс: Psyker
     table.insert(layout, {widget_type = "stat_header", text = localize("stats_records_psyker")})
@@ -196,6 +204,8 @@ TabRecords.create_layout = function(safe_read_stat, localize, format_number)
         description = Localize("loc_achievement_psyker_kills_during_overcharge_stance_description"),
     })
 
+    table.insert(layout, {widget_type = "stat_line", text = "", value = ""})
+    
     -- Класс: Ogryn
     table.insert(layout, {widget_type = "stat_header", text = localize("stats_records_ogryn")})
     table.insert(layout, {
