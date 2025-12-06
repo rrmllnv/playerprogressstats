@@ -1,6 +1,6 @@
 local constants = {}
 
-constants.DEBUG = true
+constants.DEBUG = false
 
 constants.category_panel_size = {500, 820}
 constants.stats_panel_size = {1000, 820}
@@ -15,11 +15,11 @@ constants.tabs_definitions = {
 	{key = "tab_enemies", fallback = "ENEMIES"},
 	{key = "tab_missions", fallback = "MISSIONS"},
 	{key = "tab_mission_progress", fallback = "MISSION PROGRESS"},
-	{key = "tab_records", fallback = "RECORDS"},
+	-- {key = "tab_records", fallback = "RECORDS"}, -- временно скрываем кнопку "Рекорды"
 }
 
 if constants.DEBUG then
-	table.insert(constants.tabs_definitions, {key = "tab_localization_debug", fallback = "🔍 LOCALIZATION"})
+	table.insert(constants.tabs_definitions, {key = "tab_localization_debug", fallback = "LOCALIZATION"})
 end
 
 constants.legend_inputs = {
