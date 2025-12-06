@@ -5,7 +5,7 @@ local TabMissionProgress = {}
 TabMissionProgress.create_layout = function(safe_read_stat, localize, format_number)
     local layout = {}
 
-    table.insert(layout, {widget_type = "stat_header", text = localize("stats_mission_progress_header")})
+    --table.insert(layout, {widget_type = "stat_header", text = localize("stats_mission_progress_header")})
 
     local ok_mg, mission_groups = pcall(require, "scripts/settings/achievements/achievement_mission_groups")
     local missions = ok_mg and mission_groups and mission_groups.missions or {}
