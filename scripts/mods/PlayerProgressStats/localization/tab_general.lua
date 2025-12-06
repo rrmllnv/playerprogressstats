@@ -28,42 +28,42 @@ return {
 	},
 	stats_poxburster_explosion_kills = {
 		en = "Poxburster Explosion Kills",
-		ru = "Убийств взрывами поксбурстеров",
+		ru = "Убийств взрывами Чумного Взрывуна",
 	},
 	stats_companion_pounce_kills = {
-		en = "Companion Pounce Kills",
-		ru = "Убийств прыгнутых компаньоном",
+		en = "Kills by sicced cybermastiff (pounce)",
+		ru = "Убийств натравленным кибермастифом",
 	},
-	stats_companion_coherency_kills = {
-		en = "Team Kills with Companion",
-		ru = "Убийств команды с компаньоном",
+	stats_companion_coherency_kills = {	
+		en = "Team kills with cybermastiff in coherency",
+		ru = "Командных убийств с кибермастифом в сплоченности",
 	},
 	stats_other_kills = {
-		en = "Other Kills",
+		en = "Other kills",
 		ru = "Прочие убийства",
 	},
 	stats_sprint_dodges = {
-		en = "Sprint Dodges",
+		en = "Sprint dodges",
 		ru = "Уклонений спринтом",
 	},
 	stats_slide_dodges = {
-		en = "Slide Dodges",
+		en = "Slide dodges",
 		ru = "Уклонений скольжением",
 	},
 	stats_player_rescues = {
-		en = "Player Rescues",
+		en = "Player rescues",
 		ru = "Спасения игроков",
 	},
 	stats_player_assists = {
-		en = "Player Assists",
-		ru = "Помощи игрокам",
+		en = "Player assists",
+		ru = "Помощь игрокам",
 	},
 	stats_coherency_toughness = {
-		en = "Coherency Toughness",
+		en = "Coherency toughness",
 		ru = "Стойкость от сплоченности",
 	},
 	stats_melee_toughness_regen = {
-		en = "Melee Toughness Regen",
+		en = "Melee toughness regen",
 		ru = "Восст. стойкости в ближнем бою",
 	},
 }

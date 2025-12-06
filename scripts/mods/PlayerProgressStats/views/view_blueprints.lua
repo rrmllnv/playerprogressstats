@@ -7,9 +7,9 @@ local grid_size = constants.grid_size
 local blueprints = {}
 
 blueprints.stat_line = {
-	size = {grid_size[1] - 20, 34},
+	size = {grid_size[1] - 20, 40},
 	size_function = function()
-		return {grid_size[1] - 20, 34}
+		return {grid_size[1] - 20, 40}
 	end,
 	pass_template = {
 		{
