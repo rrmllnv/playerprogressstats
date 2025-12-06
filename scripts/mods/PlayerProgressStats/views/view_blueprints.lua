@@ -7,9 +7,9 @@ local grid_size = constants.grid_size
 local blueprints = {}
 
 blueprints.stat_line = {
-	size = {grid_size[1] - 20, 40},
+	size = {grid_size[1] - 20, 50},
 	size_function = function()
-		return {grid_size[1] - 20, 40}
+		return {grid_size[1] - 20, 50}
 	end,
 	pass_template = {
 		{
@@ -91,17 +91,9 @@ blueprints.stat_line = {
 }
 
 blueprints.stat_line_with_description = {
-	size_function = function(element)
-		local width = grid_size[1] - 20
-		local base_height = 44
-		local desc = element and element.description or ""
-		local len = (Utf8 and Utf8.len and Utf8.len(desc)) or desc:len()
-		local chars_per_line = 45
-		local lines = math.max(1, math.ceil(len / chars_per_line))
-		local line_height = 22
-		local height = base_height + lines * line_height + 10
-
-		return {width, height}
+	size = {grid_size[1] - 20, 65},
+	size_function = function()
+		return {grid_size[1] - 20, 65} -- фиксированная высота, без динамики
 	end,
 	pass_template = {
 		{
@@ -185,7 +177,7 @@ blueprints.stat_line_with_description = {
 				font_type = "proxima_nova_bold",
 				font_size = 18,
 				text_color = Color.terminal_text_body_dark(180, true),
-				offset = {10, 40, 1},
+				offset = {14, 34, 1}, -- под фиксированную высоту
 			},
 		},
 	},
