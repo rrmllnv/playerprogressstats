@@ -28,7 +28,8 @@ blueprints.stat_line = {
 			},
 			change_function = function(content, style)
 				local hotspot = content.hotspot
-				local hover_progress = hotspot.anim_hover_progress or 0
+				local is_empty = (content.text == nil or content.text == "") and (content.value == nil or content.value == "")
+				local hover_progress = is_empty and 0 or (hotspot.anim_hover_progress or 0)
 				local alpha = 100 * hover_progress
 				style.color[1] = alpha
 			end,
@@ -48,9 +49,10 @@ blueprints.stat_line = {
 			},
 			change_function = function(content, style)
 				local hotspot = content.hotspot
+				local is_empty = (content.text == nil or content.text == "") and (content.value == nil or content.value == "")
 				local default_color = style.default_color
 				local hover_color = style.hover_color
-				local hover_progress = hotspot.anim_hover_progress or 0
+				local hover_progress = is_empty and 0 or (hotspot.anim_hover_progress or 0)
 				local color = style.text_color
 
 				color[2] = math.lerp(default_color[2], hover_color[2], hover_progress)
@@ -73,9 +75,10 @@ blueprints.stat_line = {
 			},
 			change_function = function(content, style)
 				local hotspot = content.hotspot
+				local is_empty = (content.text == nil or content.text == "") and (content.value == nil or content.value == "")
 				local default_color = style.default_color
 				local hover_color = style.hover_color
-				local hover_progress = hotspot.anim_hover_progress or 0
+				local hover_progress = is_empty and 0 or (hotspot.anim_hover_progress or 0)
 				local color = style.text_color
 
 				color[2] = math.lerp(default_color[2], hover_color[2], hover_progress)
